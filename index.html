@@ -3,214 +3,216 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title></title>
-		<style type="text/css">
-			.couplelog .gap i
-			{
-				display: block;
-				height: 0.5em;
-				width: 0.5em;
-			}
-			
-			.couplelog .title
-			{
-				padding-right: 0.5em;
-			}
-			
-			.couplelog .counts
-			{
-				padding-left: 0.5em;
-			}
-			
-			.couplelog .title,
-			.couplelog .counts
-			{
-				white-space: nowrap;
-			}
-			
-			.couplelog .bar
-			{
-				float: left;
-				height: 100%;
-			}
+        <style type="text/css">
+            .couplelog .gap i
+            {
+                display: block;
+                height: 0.5em;
+                width: 0.5em;
+            }
 
-			.couplelog .he .bar
-			{
-				background-color: #00f;				
-			}
+            .couplelog .title
+            {
+                padding-right: 0.5em;
+            }
 
-			.couplelog .she .bar
-			{
-				background-color: #f00;				
-			}
-			
-			.couplelog .in-min .bar-diff
-			{
-				background-color: #ccc;
-			}
-			
-			.couplelog .he .count
-			{
-				color: #00f;
-			}
-			
-			.couplelog .she .count
-			{
-				color: #f00;
-			}
+            .couplelog .counts
+            {
+                padding-left: 0.5em;
+            }
 
-			.couplelog .in-max .diff
-			{
-				display: none;
-			}
-			
-			.couplelog .diff .count-diff
-			{
-				color: #ccc;
-			}
-			
-			.couplelog form
-			{
-				padding-top: 1em;
-			}
-			
-			.couplelog form .cancel
-			{
-				display: none;
-			}
-			
-		</style>
-		<script type="text/javascript" src="//yandex.st/js/jquery/1.3.2/_jquery.js"></script>
-		<script type="text/javascript">
-			var currentUser = 'veged',
-				data = {
-					title: 'Мытьё посуды',
-					he: {
-						user: 'veged',
-						count: 1,
-						action: 'Я помыл посуду.',
-						button: 'помыл'
-					},
-					she: {
-						user: 'lady_alice',
-						count: 20,
-						action: 'Я помыла посуду.',
-						button: 'помыла'
-					}
-				};
-			
-			function CoupleLog(data, currentUser) {
-				this.data = data;
-				this.current = '';
-				if (data.he.user == currentUser) this.current = 'he';
-				if (data.she.user == currentUser) this.current = 'she';
-				this.currentData = data[this.current];				
-				this.makeDOM();
-			}
-			
-			CoupleLog.prototype.makeHTML = function() {
-				var barsAndCounts = [
-						'<td style="width: 100%">',
-							'<div class="bar bar-main">&#160;</div>',
-							'<div class="bar bar-diff">&#160;</div>',
-						'</td>',
-						'<td class="counts">',
-							'<span class="count count-main"/>',
-							'<span class="diff">, <span class="count count-diff"/></span>',
-						'</td>'].join('');
-						
-				return ['<div class="couplelog">',
-					'<h1>', this.data.title, '</h1>',
-					'<table cellpadding="0" cellspacing="0" width="100%">',
-						'<tr class="he">',
-							'<td class="title">',
-								this.current == 'he' ? 'Я' : 'Он',
-							'</td>',
-							barsAndCounts,
-						'</tr>',
-						'<tr class="gap"><td colspan="4"><i/></td></tr>',
-						'<tr class="she">',
-							'<td style="padding-right: 0.5em;">',
-								this.current == 'she' ? 'Я' : 'Она',
-							'</td>',
-							barsAndCounts,
-						'</tr>',
-					'</table>',
-					this.makeFormHTML(),
-				'</div>'].join('');
-			};
-			
-			CoupleLog.prototype.makeFormHTML = function(){
-				if (!this.current) return '';
-				var action = this.currentData.action,
-					button = this.currentData.button,
-					buttonHTML = '<input type="button" value="' + button + '"/>';
-				return ['<form action="">',
-							'<p class="action">',
-								action.indexOf(button) > -1 ?
-									action.replace(button, buttonHTML) :
-									action + buttonHTML,
-							'</p>',
-							'<p class="cancel">',
-								'<input type="button" value="Отменить"/> последнюю запись.',
-							'</p>',
-						'</form>'].join('');
-			};
+            .couplelog .title,
+            .couplelog .counts
+            {
+                white-space: nowrap;
+            }
 
-			CoupleLog.prototype.makeDOM = function(html) {
-				this.elem = $(this.makeHTML(data)).appendTo('body');
-				var _this = this;
-				$.each({
-						he: '.he',
-						she: '.she',
-						bar: '.bar-main',
-						barDiff: '.bar-diff',
-						heCount: '.he .count-main',
-						sheCount: '.she .count-main',
-						diffCount: '.count-diff',
-						actionButton: '.action :button',
-						cancel: '.cancel',
-						cancelButton: '.cancel :button'
-					}, function(k, v){
-						_this[k] = _this.elem.find(v);
-					});
-				this.syncCounts();
-				
-				this.actionButton.click(function(){
-					$(this).attr('disabled', 'disabled').animate({disabled: ''}, 1000);
-					_this.currentData.count++;
-					_this.syncCounts();
-					_this.cancel.show();
-					setTimeout(function(){ _this.cancel.fadeOut() }, 10000);
-				});
+            .couplelog .bar
+            {
+                float: left;
+                height: 100%;
+            }
 
-				this.cancelButton.click(function(){
-					_this.cancel.hide();
-					_this.currentData.count--;
-					_this.syncCounts();
-				});
-			};
+            .couplelog .he .bar
+            {
+                background-color: #00f;
+            }
 
-			CoupleLog.prototype.syncCounts = function() {
-				var isHeMax = this.data.he.count > this.data.she.count,
-					counts = [this.data.he.count];
-				counts[isHeMax ? 'unshift' : 'push'](this.data.she.count);
+            .couplelog .she .bar
+            {
+                background-color: #f00;
+            }
 
-				this.heCount.text(this.data.he.count);
-				this.sheCount.text(this.data.she.count);
-				this.diffCount.text(counts[1] - counts[0]);
-				
-				this.he.toggleClass('in-min', !isHeMax).toggleClass('in-max', isHeMax);
-				this.she.toggleClass('in-min', isHeMax).toggleClass('in-max', !isHeMax);
+            .couplelog .in-min .bar-diff
+            {
+                background-color: #ccc;
+            }
 
-				var barWidth = (counts[0] / counts[1]) * 100;
-				this.bar.width(barWidth + '%');
-				this.barDiff.width((100 - barWidth) + '%');
-			};
-			
-			$(function(){
-				var couplelog = new CoupleLog(data, currentUser);
-			});
-		</script>
+            .couplelog .he .count
+            {
+                color: #00f;
+            }
+
+            .couplelog .she .count
+            {
+                color: #f00;
+            }
+
+            .couplelog .in-max .diff
+            {
+                display: none;
+            }
+
+            .couplelog .diff .count-diff
+            {
+                color: #ccc;
+            }
+
+            .couplelog form
+            {
+                padding-top: 1em;
+            }
+
+            .couplelog form .cancel
+            {
+                display: none;
+            }
+
+        </style>
+        <script type="text/javascript" src="//yandex.st/js/jquery/1.3.2/_jquery.js"></script>
+        <script type="text/javascript">
+            var currentUser = 'veged',
+                data = {
+                    title: 'Мытьё посуды',
+                    he: {
+                        user: 'veged',
+                        count: 1,
+                        action: 'Я помыл посуду.',
+                        button: 'помыл'
+                    },
+                    she: {
+                        user: 'lady_alice',
+                        count: 20,
+                        action: 'Я помыла посуду.',
+                        button: 'помыла'
+                    }
+                };
+
+            function CoupleLog(data, currentUser) {
+                this.data = data;
+                this.current = '';
+                if (data.he.user == currentUser) this.current = 'he';
+                if (data.she.user == currentUser) this.current = 'she';
+                this.currentData = data[this.current];
+                this.makeDOM();
+            }
+
+            CoupleLog.prototype.makeHTML = function() {
+                return ['<div class="couplelog">',
+                    '<h1>', this.data.title, '</h1>',
+                    '<table cellpadding="0" cellspacing="0" width="100%">',
+                        this.makeRowHTML('he', 'Он'),
+                        '<tr class="gap"><td colspan="3"><i/></td></tr>',
+                        this.makeRowHTML('she', 'Она'),
+                    '</table>',
+                    this.makeFormHTML(),
+                '</div>'].join('');
+            };
+
+            CoupleLog.prototype.makeRowHTML = function(who, whoTitle){
+                return [
+                    '<tr class="', who, '">',
+                        '<td class="title">',
+                            this.current == who ? 'Я' : whoTitle,
+                        '</td>',
+                        this.barsAndCountsHTML,
+                    '</tr>'].join('');
+            };
+
+            CoupleLog.prototype.barsAndCountsHTML = [
+                '<td style="width: 100%">',
+                    '<div class="bar bar-main">&#160;</div>',
+                    '<div class="bar bar-diff">&#160;</div>',
+                '</td>',
+                '<td class="counts">',
+                    '<span class="count count-main"/>',
+                    '<span class="diff">, <span class="count count-diff"/></span>',
+                '</td>'].join('');
+
+            CoupleLog.prototype.makeFormHTML = function(){
+                if (!this.current) return '';
+                var action = this.currentData.action,
+                    button = this.currentData.button,
+                    buttonHTML = '<input type="button" value="' + button + '"/>';
+                return ['<form action="">',
+                        '<p class="action">',
+                            action.indexOf(button) > -1 ?
+                                action.replace(button, buttonHTML) :
+                                action + ' ' + buttonHTML,
+                        '</p>',
+                        '<p class="cancel">',
+                            '<input type="button" value="Отменить"/> последнюю запись.',
+                        '</p>',
+                    '</form>'].join('');
+            };
+
+            CoupleLog.prototype.makeDOM = function(html) {
+                this.elem = $(this.makeHTML()).appendTo('body');
+                var _this = this;
+                $.each({
+                        he: '.he',
+                        she: '.she',
+                        bar: '.bar-main',
+                        barDiff: '.bar-diff',
+                        heCount: '.he .count-main',
+                        sheCount: '.she .count-main',
+                        diffCount: '.count-diff',
+                        actionButton: '.action :button',
+                        cancel: '.cancel',
+                        cancelButton: '.cancel :button'
+                    }, function(k, v){
+                        _this[k] = _this.elem.find(v);
+                    });
+                this.syncCounts();
+
+                this.actionButton.click(function(){
+                    $(this).attr('disabled', 'disabled').animate({disabled: ''}, 1000);
+
+                    _this.currentData.count++;
+                    _this.syncCounts();
+
+                    _this.cancel.show();
+                    setTimeout(function(){ _this.cancel.fadeOut() }, 10000);
+                });
+
+                this.cancelButton.click(function(){
+                    _this.cancel.hide();
+                    _this.currentData.count--;
+                    _this.syncCounts();
+                });
+            };
+
+            CoupleLog.prototype.syncCounts = function() {
+                var isHeMax = this.data.he.count > this.data.she.count,
+                    counts = [this.data.he.count];
+                counts[isHeMax ? 'unshift' : 'push'](this.data.she.count);
+
+                this.heCount.text(this.data.he.count);
+                this.sheCount.text(this.data.she.count);
+                this.diffCount.text(counts[1] - counts[0]);
+
+                this.he.toggleClass('in-min', !isHeMax).toggleClass('in-max', isHeMax);
+                this.she.toggleClass('in-min', isHeMax).toggleClass('in-max', !isHeMax);
+
+                var barWidth = (counts[0] / counts[1]) * 100;
+                this.bar.width(barWidth + '%');
+                this.barDiff.width((100 - barWidth) + '%');
+            };
+
+            $(function(){
+                var couplelog = new CoupleLog(data, currentUser);
+            });
+        </script>
     </head>
     <body>
     </body>
