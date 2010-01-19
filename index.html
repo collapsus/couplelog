@@ -7,28 +7,43 @@
         <script type="text/javascript" src="http://yandex.st/js/jquery/1.3.2/_jquery.js"></script>
 		<script type="text/javascript" src="couplelog.js"></script>
         <script type="text/javascript">
-            var currentUser = 'veged',
+        	
+            var /*currentUser = 'veged',*/
                 data = {
                     title: 'Мытьё посуды',
                     he: {
                         user: 'veged',
-                        count: 1,
+                        count: 3,
                         action: 'Я помыл посуду.',
                         button: 'помыл'
                     },
                     she: {
                         user: 'lady_alice',
-                        count: 20,
+                        count: 5,
                         action: 'Я помыла посуду.',
                         button: 'помыла'
                     }
                 };
 
             $(function(){
-                var couplelog = new CoupleLog(data, currentUser);
+                $("#hebutton").click(function(){
+                    $(".couplelog").remove();   
+                    var couplelog = new CoupleLog(data, 'veged');
+                });
+               
+                $("#shebutton").click(function(){
+                    $(".couplelog").remove();  
+                    var couplelog = new CoupleLog(data, 'lady_alice');
+                });
             });
-        </script>
+        
+		</script>
     </head>
     <body>
+        <div class="likelogin">
+            <h1>Кто вы?</h1>
+            <input type="button" value="Он" id="hebutton"/>
+            <input type="button" value="Она" id="shebutton"/>
+        </div>
     </body>
 </html>

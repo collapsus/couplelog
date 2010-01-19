@@ -5,7 +5,7 @@
         if (data.she.user == currentUser) this.current = 'she';
         this.currentData = data[this.current];
         this.makeDOM();
-    }
+    };
 
     CoupleLog.prototype.makeHTML = function() {
         return ['<div class="couplelog">',
@@ -108,3 +108,4 @@
         this.bar.width(barWidth + '%');
         this.barDiff.width((100 - barWidth) + '%');
     };
+	
