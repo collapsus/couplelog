@@ -109,3 +109,7 @@
         this.barDiff.width((100 - barWidth) + '%');
     };
 	
+	CoupleLog.prototype.destroy = function(){
+        $(".couplelog").remove();
+	};
+	

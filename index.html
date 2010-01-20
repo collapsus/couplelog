@@ -26,24 +26,30 @@
                 };
 
             $(function(){
-                $("#hebutton").click(function(){
-                    $(".couplelog").remove();   
-                    var couplelog = new CoupleLog(data, 'veged');
+                $(".button").click(function(){
+                    if (this.value=='Он') {
+                        currentUser = 'veged';
+                    } else if (this.value=='Она') {
+                        currentUser = 'lady_alice';
+                    }
+					/*
+                    if (couplelog=undefined) {
+						couplelog.destroy(); //этот вариант не работает т.к. couplelog ещё не определён
+					} else alert("!!!");
+					*/					
+					$(".couplelog").remove();
+                    var couplelog = new CoupleLog(data, currentUser);
+					
                 });
-               
-                $("#shebutton").click(function(){
-                    $(".couplelog").remove();  
-                    var couplelog = new CoupleLog(data, 'lady_alice');
-                });
-            });
+			});	
         
 		</script>
     </head>
     <body>
         <div class="likelogin">
             <h1>Кто вы?</h1>
-            <input type="button" value="Он" id="hebutton"/>
-            <input type="button" value="Она" id="shebutton"/>
+            <input type="button" value="Он" class="button"/>
+            <input type="button" value="Она" class="button"/>
         </div>
     </body>
 </html>
