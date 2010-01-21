@@ -9,6 +9,7 @@
         <script type="text/javascript">
         	
             var /*currentUser = 'veged',*/
+                flag = false;
                 data = {
                     title: 'Мытьё посуды',
                     he: {
@@ -32,13 +33,13 @@
                     } else if (this.value=='Она') {
                         currentUser = 'lady_alice';
                     }
-					/*
-                    if (couplelog=undefined) {
-						couplelog.destroy(); //этот вариант не работает т.к. couplelog ещё не определён
-					} else alert("!!!");
-					*/					
-					$(".couplelog").remove();
-                    var couplelog = new CoupleLog(data, currentUser);
+					
+                    if (flag) {
+						couplelog.destroy(); 
+					};
+
+                    couplelog = new CoupleLog(data, currentUser);
+					flag = true;
 					
                 });
 			});	
