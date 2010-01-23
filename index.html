@@ -5,11 +5,12 @@
         <title></title>
         <link rel="stylesheet" href="couplelog.css"/>
         <script type="text/javascript" src="http://yandex.st/js/jquery/1.3.2/_jquery.js"></script>
+        <script type="text/javascript" src="http://yandex.st/js/jquery/1.3.2/_jquery.lint.js"></script>
 		<script type="text/javascript" src="couplelog.js"></script>
         <script type="text/javascript">
         	
             var /*currentUser = 'veged',*/
-                flag = false;
+                couplelog,
                 data = {
                     title: 'Мытьё посуды',
                     he: {
@@ -32,14 +33,13 @@
                         currentUser = 'veged';
                     } else if (this.value=='Она') {
                         currentUser = 'lady_alice';
-                    }
+                    };
 					
-                    if (flag) {
+                    if (couplelog !== undefined) {
 						couplelog.destroy(); 
 					};
 
                     couplelog = new CoupleLog(data, currentUser);
-					flag = true;
 					
                 });
 			});	
