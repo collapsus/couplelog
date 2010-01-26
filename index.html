@@ -30,20 +30,20 @@
             $(function(){
 				
                 $(".button").click(function(){
-                    if (this.value=='Он') {
+                    if (this.value == 'Он') {
                         currentUser = 'veged';
-                    } else if (this.value=='Она') {
+                    } else if (this.value == 'Она') {
                         currentUser = 'lady_alice';
                     };
 					
                     if (couplelog !== undefined) {
-						couplelog.destroy(); 
-					};
+                        couplelog.destroy(); 
+                    };
 
                     couplelog = new CoupleLog(data, currentUser);
 					
                 });
-			});	
+            });	
 		</script>
     </head>
     <body>
