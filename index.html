@@ -29,6 +29,31 @@
 
             $(function(){
 				
+				$(".setup").hide();
+                $(".title-text").val(data.title);
+                $(".he-action-text").val(data.he.action);
+                $(".he-action-button-text").val(data.he.button);
+                $(".she-action-text").val(data.she.action);
+                $(".she-action-button-text").val(data.she.button);
+				
+				$(".setup-button").click(function(){
+					$(".setup").show();
+				});
+				
+				$(".setup-ok").click(function(){
+                    $(".setup").hide();
+                    data.title = $(".title-text").val();
+					data.he.action = $(".he-action-text").val();
+					data.he.button = $(".he-action-button-text").val();
+					data.she.action = $(".she-action-text").val();
+					data.she.button = $(".she-action-button-text").val();
+					if (couplelog !== undefined) {
+					    couplelog.destroy();
+					};
+					
+					couplelog = new CoupleLog(data, currentUser);
+				});
+				
                 $(".button").click(function(){
                     if (this.value == 'Он') {
                         currentUser = 'veged';
@@ -37,7 +62,7 @@
                     };
 					
                     if (couplelog !== undefined) {
-                        couplelog.destroy(); 
+                        couplelog.destroy();
                     };
 
                     couplelog = new CoupleLog(data, currentUser);
@@ -47,6 +72,20 @@
 		</script>
     </head>
     <body>
+		<div align="right">
+			<input type="button" value="Настройки" class="setup-button"/>
+		</div>
+		<div class="setup">
+			<input type="text" class="title-text"/>
+			<br />
+			<input type="text" class="he-action-text"/>
+			<input type="text" class="he-action-button-text"/>
+			<br />
+			<input type="text" class="she-action-text"/>
+			<input type="text" class="she-action-button-text"/>
+			<br />
+			<input type="button" value="OK" class="setup-ok"/>
+		</div>
         <div class="likelogin">
             <h1>Кто вы?</h1>
             <input type="button" value="Он" class="button"/>
