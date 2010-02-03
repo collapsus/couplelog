@@ -10,6 +10,7 @@
         <script type="text/javascript">
         	
             var /*currentUser = 'veged',*/
+                tmpheact, tmpsheact,
                 couplelog,
                 data = {
                     title: 'Мытьё посуды',
@@ -30,23 +31,38 @@
             $(function(){
 				
 				$(".setup").hide();
+				
                 $(".title-text").val(data.title);
                 $(".he-action-text").val(data.he.action);
-                $(".he-action-button-text").val(data.he.button);
                 $(".she-action-text").val(data.she.action);
-                $(".she-action-button-text").val(data.she.button);
 				
 				$(".setup-button").click(function(){
-					$(".setup").show();
+					$("div:not(.setup-button)").hide();
+                    $(".setup").show();
 				});
 				
+                $(".he-action-text").mouseup(function(){
+                    tmpheact = $selection.getText();
+                });
+
+                $(".she-action-text").mouseup(function(){
+                    tmpsheact = $selection.getText();
+                });
+				
+                $(".he-action-button").click(function(){
+                    data.he.button = tmpheact;
+                });
+
+                $(".she-action-button").click(function(){
+                    data.she.button = tmpsheact;
+                });
+				
 				$(".setup-ok").click(function(){
-                    $(".setup").hide();
-                    data.title = $(".title-text").val();
+					$(".setup").hide();
+					$("div:not(.setup)").show();
+					data.title = $(".title-text").val();
 					data.he.action = $(".he-action-text").val();
-					data.he.button = $(".he-action-button-text").val();
 					data.she.action = $(".she-action-text").val();
-					data.she.button = $(".she-action-button-text").val();
 					data.he.count = 0;
 					data.she.count = 0;
 					if (couplelog !== undefined) {
@@ -56,35 +72,48 @@
 					couplelog = new CoupleLog(data, currentUser);
 				});
 				
-                $(".button").click(function(){
-                    if (this.value == 'Он') {
-                        currentUser = 'veged';
-                    } else if (this.value == 'Она') {
-                        currentUser = 'lady_alice';
-                    };
+				$(".button").click(function(){
+				    if (this.value == 'Он') {
+				        currentUser = 'veged';
+				    } else if (this.value == 'Она') {
+				        currentUser = 'lady_alice';
+				    };
 					
-                    if (couplelog !== undefined) {
-                        couplelog.destroy();
-                    };
+				    if (couplelog !== undefined) {
+				        couplelog.destroy();
+				    };
 
-                    couplelog = new CoupleLog(data, currentUser);
+                couplelog = new CoupleLog(data, currentUser);
 					
                 });
             });	
+
+			$selection = {
+			    getText : function() {
+			        var txt = '';
+			        if (txt = window.getSelection) {
+			            txt = window.getSelection().toString();
+			        } else {
+			            txt = document.selection.createRange().text;
+			        }
+			        return txt;
+			    }
+			}			
+			
 		</script>
-    </head>
-    <body>
-		<div align="right">
+	</head>
+	<body>
+		<div class="setup-button-div">
 			<input type="button" value="Настройки" class="setup-button"/>
 		</div>
 		<div class="setup">
 			<input type="text" class="title-text"/>
 			<br />
-			<input type="text" class="he-action-text"/>
-			<input type="text" class="he-action-button-text"/>
+            <input type="text" class="he-action-text"/>
+            <input type="button" value="Сделать" class="he-action-button"/> кнопку из выделенного текста
 			<br />
 			<input type="text" class="she-action-text"/>
-			<input type="text" class="she-action-button-text"/>
+			<input type="button" value="Сделать" class="she-action-button"/> кнопку из выделенного текста
 			<br />
 			<input type="button" value="OK" class="setup-ok"/>
 		</div>
