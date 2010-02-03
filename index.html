@@ -4,13 +4,13 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title></title>
         <link rel="stylesheet" href="couplelog.css"/>
-        <script type="text/javascript" src="http://yandex.st/js/jquery/1.3.2/_jquery.js"></script>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
         <script type="text/javascript" src="jquery.lint.js"></script>
+        <script type="text/javascript" src="setup.js"></script>
 		<script type="text/javascript" src="couplelog.js"></script>
         <script type="text/javascript">
         	
             var /*currentUser = 'veged',*/
-                tmpheact, tmpsheact,
                 couplelog,
                 data = {
                     title: 'Мытьё посуды',
@@ -29,34 +29,11 @@
                 };
 
             $(function(){
+
+                var setup = new Setup(data);
 				
 				$(".setup").hide();
-				
-                $(".title-text").val(data.title);
-                $(".he-action-text").val(data.he.action);
-                $(".she-action-text").val(data.she.action);
-				
-				$(".setup-button").click(function(){
-					$("div:not(.setup-button)").hide();
-                    $(".setup").show();
-				});
-				
-                $(".he-action-text").mouseup(function(){
-                    tmpheact = $selection.getText();
-                });
 
-                $(".she-action-text").mouseup(function(){
-                    tmpsheact = $selection.getText();
-                });
-				
-                $(".he-action-button").click(function(){
-                    data.he.button = tmpheact;
-                });
-
-                $(".she-action-button").click(function(){
-                    data.she.button = tmpsheact;
-                });
-				
 				$(".setup-ok").click(function(){
 					$(".setup").hide();
 					$("div:not(.setup)").show();
@@ -103,20 +80,6 @@
 		</script>
 	</head>
 	<body>
-		<div class="setup-button-div">
-			<input type="button" value="Настройки" class="setup-button"/>
-		</div>
-		<div class="setup">
-			<input type="text" class="title-text"/>
-			<br />
-            <input type="text" class="he-action-text"/>
-            <input type="button" value="Сделать" class="he-action-button"/> кнопку из выделенного текста
-			<br />
-			<input type="text" class="she-action-text"/>
-			<input type="button" value="Сделать" class="she-action-button"/> кнопку из выделенного текста
-			<br />
-			<input type="button" value="OK" class="setup-ok"/>
-		</div>
         <div class="likelogin">
             <h1>Кто вы?</h1>
             <input type="button" value="Он" class="button"/>
