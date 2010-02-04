@@ -10,12 +10,14 @@
     CoupleLog.prototype.makeHTML = function() {
         return ['<div class="couplelog">',
             '<h1>', this.data.title, '</h1>',
-            '<table cellpadding="0" cellspacing="0" width="100%">',
-                this.makeRowHTML('he', 'Он'),
-                '<tr class="gap"><td colspan="3"><i/></td></tr>',
-                this.makeRowHTML('she', 'Она'),
-            '</table>',
-            this.makeFormHTML(),
+			'<div class="slide-div">',
+				'<table cellpadding="0" cellspacing="0" width="100%">',
+				    this.makeRowHTML('he', 'Он'),
+				    '<tr class="gap"><td colspan="3"><i/></td></tr>',
+				    this.makeRowHTML('she', 'Она'),
+				'</table>',
+				this.makeFormHTML(),
+			'</div>',
         '</div>'].join('');
     };
 
@@ -69,7 +71,8 @@
                 diffCount: '.count-diff',
                 actionButton: '.action :button',
                 cancel: '.cancel',
-                cancelButton: '.cancel :button'
+                cancelButton: '.cancel :button',
+				h1Title: 'h1'
             }, function(k, v){
                 _this[k] = _this.elem.find(v);
             });
@@ -90,6 +93,11 @@
             _this.currentData.count--;
             _this.syncCounts();
         });
+		
+		this.h1Title.click(function(){
+			$(this).next("div").slideToggle("fast");
+		});
+		
     };
 
     CoupleLog.prototype.syncCounts = function() {

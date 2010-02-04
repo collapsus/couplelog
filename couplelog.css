@@ -9,6 +9,12 @@
 	{
 	    padding-right: 0.5em;
 	}
+
+    .couplelog h1
+	{
+		text-align: center;
+        background-color:#F9F9F9;
+	}
 	
 	.couplelog .counts
 	{
@@ -82,3 +88,9 @@
 	{
 		text-align: right;
 	}
+
+	.slide-div
+	{
+		display: none;
+	}
+	

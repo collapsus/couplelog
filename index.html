@@ -49,6 +49,7 @@
 					couplelog = new CoupleLog(data, currentUser);
 				});
 				
+				
 				$(".button").click(function(){
 				    if (this.value == 'Он') {
 				        currentUser = 'veged';
@@ -65,25 +66,13 @@
                 });
             });	
 
-			$selection = {
-			    getText : function() {
-			        var txt = '';
-			        if (txt = window.getSelection) {
-			            txt = window.getSelection().toString();
-			        } else {
-			            txt = document.selection.createRange().text;
-			        }
-			        return txt;
-			    }
-			}			
-			
 		</script>
 	</head>
 	<body>
         <div class="likelogin">
-            <h1>Кто вы?</h1>
-            <input type="button" value="Он" class="button"/>
-            <input type="button" value="Она" class="button"/>
+            <b>Кто вы?</b>
+            <input type="radio" name="who" value="Он" class="button"/>Он
+            <input type="radio" name="who" value="Она" class="button"/>Она
         </div>
     </body>
 </html>
