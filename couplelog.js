@@ -8,7 +8,7 @@
     };
 
     CoupleLog.prototype.makeHTML = function() {
-        return ['<div class="couplelog">',
+        return ['<div class="couplelog ' + this.data.id + '">',
             '<h1>', this.data.title, '</h1>',
 			'<div class="slide-div">',
 				'<table cellpadding="0" cellspacing="0" width="100%">',
@@ -95,7 +95,9 @@
         });
 		
 		this.h1Title.click(function(){
-			$(this).next("div").slideToggle("fast");
+			$("div.couplelog." + _this.data.id + "> div").slideToggle("fast");
+			$("div.couplelog:not(." + _this.data.id + ") > div").slideUp("fast");
+			$(".menu").show();
 		});
 		
     };
@@ -118,6 +120,6 @@
     };
 	
 	CoupleLog.prototype.destroy = function(){
-        $(".couplelog").remove();
+        $(".couplelog." + this.data.id).remove();
 	};
 	

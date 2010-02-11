@@ -78,18 +78,23 @@
 	    display: none;
 	}
 	
-	.setup
+	.menu
 	{
 		text-align: left;
 		background-color:#F9F9F9;
 	}
 	
-	.setup-button-div
+	.button-div
 	{
 		text-align: right;
 	}
 
 	.slide-div
+	{
+		display: none;
+	}
+	
+	.setup
 	{
 		display: none;
 	}

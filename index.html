@@ -11,44 +11,66 @@
         <script type="text/javascript">
         	
             var /*currentUser = 'veged',*/
-                couplelog,
-                data = {
-                    title: 'Мытьё посуды',
-                    he: {
-                        user: 'veged',
-                        count: 3,
-                        action: 'Я помыл посуду.',
-                        button: 'помыл'
-                    },
-                    she: {
-                        user: 'lady_alice',
-                        count: 5,
-                        action: 'Я помыла посуду.',
-                        button: 'помыла'
-                    }
-                };
+                couplelog = {},
+                logs = {
+					'id1': {	
+						id: 'id1',
+						title: 'Мытьё посуды',
+						he: {
+						    user: 'veged',
+						    count: 3,
+						    action: 'Я помыл посуду.',
+						    button: 'помыл'
+						},
+						she: {
+						    user: 'lady_alice',
+						    count: 5,
+						    action: 'Я помыла посуду.',
+						    button: 'помыла'
+						}
+					},
+					'id2': {
+						id: 'id2',	
+						title: 'Хорошо',
+						he: {
+						    user: 'veged',
+						    count: 5,
+						    action: 'Я сделал хорошо.',
+						    button: 'сделал'
+						},
+						she: {
+						    user: 'lady_alice',
+						    count: 1,
+						    action: 'Я сделала хорошо',
+						    button: 'сделала'
+						}
+					}
+				};
 
             $(function(){
-
-                var setup = new Setup(data);
+			
+                var setup = {};
 				
-				$(".setup").hide();
+				//$(".setup:not(.button-div)").hide();
+				
+				$("div.menu.setup-ok").click(function(){
+					$.each(logs, function(index, elmnt){
 
-				$(".setup-ok").click(function(){
-					$(".setup").hide();
-					$("div:not(.setup)").show();
-					data.title = $(".title-text").val();
-					data.he.action = $(".he-action-text").val();
-					data.she.action = $(".she-action-text").val();
-					data.he.count = 0;
-					data.she.count = 0;
-					if (couplelog !== undefined) {
-					    couplelog.destroy();
-					};
-					
-					couplelog = new CoupleLog(data, currentUser);
+						$(".setup:not(.button-div)").hide();
+						$("div:not(.setup)").show();
+						elmnt.title = $(".title-text").val();
+						elmnt.he.action = $(".he-action-text").val();
+						elmnt.she.action = $(".she-action-text").val();
+	
+					    if (couplelog[index] !== undefined) {
+							couplelog[index].destroy();
+					    };
+
+						couplelog[index] = new CoupleLog(elmnt, currentUser);
+						setup[index] = new Setup(elmnt);
+					});
+
 				});
-				
 				
 				$(".button").click(function(){
 				    if (this.value == 'Он') {
@@ -56,12 +78,23 @@
 				    } else if (this.value == 'Она') {
 				        currentUser = 'lady_alice';
 				    };
-					
-				    if (couplelog !== undefined) {
-				        couplelog.destroy();
-				    };
 
-                couplelog = new CoupleLog(data, currentUser);
+					$(".setup").remove();
+					
+					$.each(logs, function(index, elmnt){
+	
+					    if (couplelog[index] !== undefined) {
+							couplelog[index].destroy();
+					    };
+
+						couplelog[index] = new CoupleLog(elmnt, currentUser);
+						setup[index] = new Setup(elmnt);
+						$(".setup." + index + " > .menu").hide();
+
+					});
+					
+			//		$(".setup").hide();
+				//	$("setup.button-div").show();
 					
                 });
             });	
