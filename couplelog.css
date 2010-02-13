@@ -1,101 +1,101 @@
-	.couplelog .gap i
-	{
-	    display: block;
-	    height: 0.5em;
-	    width: 0.5em;
-	}
-	
-	.couplelog .title
-	{
-	    padding-right: 0.5em;
-	}
+    .couplelog .gap i
+    {
+        display: block;
+        height: 0.5em;
+        width: 0.5em;
+    }
+    
+    .couplelog .title
+    {
+        padding-right: 0.5em;
+    }
 
     .couplelog h1
-	{
-		text-align: center;
+    {
+        text-align: center;
         background-color:#F9F9F9;
-	}
-	
-	.couplelog .counts
-	{
-	    padding-left: 0.5em;
-	}
-	
-	.couplelog .title,
-	.couplelog .counts
-	{
-	    white-space: nowrap;
-	}
-	
-	.couplelog .bar
-	{
-	    float: left;
-	    height: 100%;
-	}
-	
-	.couplelog .he .bar
-	{
-	    background-color: #00f;
-	}
-	
-	.couplelog .she .bar
-	{
-	    background-color: #f00;
-	}
-	
-	.couplelog .in-min .bar-diff
-	{
-	    background-color: #ccc;
-	}
-	
-	.couplelog .he .count
-	{
-	    color: #00f;
-	}
-	
-	.couplelog .she .count
-	{
-	    color: #f00;
-	}
-	
-	.couplelog .in-max .diff
-	{
-	    display: none;
-	}
-	
-	.couplelog .diff .count-diff
-	{
-	    color: #ccc;
-	}
-	
-	.couplelog form
-	{
-	    padding-top: 1em;
-	}
-	
-	.couplelog form .cancel
-	{
-	    display: none;
-	}
-	
-	.menu
-	{
-		text-align: left;
-		background-color:#F9F9F9;
-	}
-	
-	.button-div
-	{
-		text-align: right;
-	}
+    }
+    
+    .couplelog .counts
+    {
+        padding-left: 0.5em;
+    }
+    
+    .couplelog .title,
+    .couplelog .counts
+    {
+        white-space: nowrap;
+    }
+    
+    .couplelog .bar
+    {
+        float: left;
+        height: 100%;
+    }
+    
+    .couplelog .he .bar
+    {
+        background-color: #00f;
+    }
+    
+    .couplelog .she .bar
+    {
+        background-color: #f00;
+    }
+    
+    .couplelog .in-min .bar-diff
+    {
+        background-color: #ccc;
+    }
+    
+    .couplelog .he .count
+    {
+        color: #00f;
+    }
+    
+    .couplelog .she .count
+    {
+        color: #f00;
+    }
+    
+    .couplelog .in-max .diff
+    {
+        display: none;
+    }
+    
+    .couplelog .diff .count-diff
+    {
+        color: #ccc;
+    }
+    
+    .couplelog form
+    {
+        padding-top: 1em;
+    }
+    
+    .couplelog form .cancel
+    {
+        display: none;
+    }
+    
+    .menu
+    {
+        text-align: left;
+        background-color:#F9F9F9;
+    }
+    
+    .button-div
+    {
+        text-align: right;
+    }
 
-	.slide-div
-	{
-		display: none;
-	}
-	
-	.setup
-	{
-		display: none;
-	}
-	
+    .slide-div
+    {
+        display: none;
+    }
+    
+    .setup
+    {
+        display: none;
+    }
+    

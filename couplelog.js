@@ -10,14 +10,14 @@
     CoupleLog.prototype.makeHTML = function() {
         return ['<div class="couplelog ' + this.data.id + '">',
             '<h1>', this.data.title, '</h1>',
-			'<div class="slide-div">',
-				'<table cellpadding="0" cellspacing="0" width="100%">',
-				    this.makeRowHTML('he', 'Он'),
-				    '<tr class="gap"><td colspan="3"><i/></td></tr>',
-				    this.makeRowHTML('she', 'Она'),
-				'</table>',
-				this.makeFormHTML(),
-			'</div>',
+            '<div class="slide-div">',
+                '<table cellpadding="0" cellspacing="0" width="100%">',
+                    this.makeRowHTML('he', 'Он'),
+                    '<tr class="gap"><td colspan="3"><i/></td></tr>',
+                    this.makeRowHTML('she', 'Она'),
+                '</table>',
+                this.makeFormHTML(),
+            '</div>',
         '</div>'].join('');
     };
 
@@ -72,7 +72,7 @@
                 actionButton: '.action :button',
                 cancel: '.cancel',
                 cancelButton: '.cancel :button',
-				h1Title: 'h1'
+                h1Title: 'h1'
             }, function(k, v){
                 _this[k] = _this.elem.find(v);
             });
@@ -93,13 +93,13 @@
             _this.currentData.count--;
             _this.syncCounts();
         });
-		
-		this.h1Title.click(function(){
-			$("div.couplelog." + _this.data.id + "> div").slideToggle("fast");
-			$("div.couplelog:not(." + _this.data.id + ") > div").slideUp("fast");
-			$(".menu").show();
-		});
-		
+/*        
+        this.h1Title.click(function(){
+            $("div.couplelog." + _this.data.id + "> div").slideToggle("fast");
+            $("div.couplelog:not(." + _this.data.id + ") > div").slideUp("fast");
+            $(".setup > .button-div").toggle();
+        });
+*/        
     };
 
     CoupleLog.prototype.syncCounts = function() {
@@ -118,8 +118,8 @@
         this.bar.width(barWidth + '%');
         this.barDiff.width((100 - barWidth) + '%');
     };
-	
-	CoupleLog.prototype.destroy = function(){
+    
+    CoupleLog.prototype.destroy = function(){
         $(".couplelog." + this.data.id).remove();
-	};
-	
+    };
+    

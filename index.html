@@ -7,101 +7,112 @@
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
         <script type="text/javascript" src="jquery.lint.js"></script>
         <script type="text/javascript" src="setup.js"></script>
-		<script type="text/javascript" src="couplelog.js"></script>
+        <script type="text/javascript" src="couplelog.js"></script>
         <script type="text/javascript">
-        	
+            
             var /*currentUser = 'veged',*/
                 couplelog = {},
                 logs = {
-					'id1': {	
-						id: 'id1',
-						title: 'Мытьё посуды',
-						he: {
-						    user: 'veged',
-						    count: 3,
-						    action: 'Я помыл посуду.',
-						    button: 'помыл'
-						},
-						she: {
-						    user: 'lady_alice',
-						    count: 5,
-						    action: 'Я помыла посуду.',
-						    button: 'помыла'
-						}
-					},
-					'id2': {
-						id: 'id2',	
-						title: 'Хорошо',
-						he: {
-						    user: 'veged',
-						    count: 5,
-						    action: 'Я сделал хорошо.',
-						    button: 'сделал'
-						},
-						she: {
-						    user: 'lady_alice',
-						    count: 1,
-						    action: 'Я сделала хорошо',
-						    button: 'сделала'
-						}
-					}
-				};
+                    'id1': {    
+                        id: 'id1',
+                        title: 'Мытьё посуды',
+                        he: {
+                            user: 'veged',
+                            count: 3,
+                            action: 'Я помыл посуду.',
+                            button: 'помыл'
+                        },
+                        she: {
+                            user: 'lady_alice',
+                            count: 5,
+                            action: 'Я помыла посуду.',
+                            button: 'помыла'
+                        }
+                    },
+                    'id2': {
+                        id: 'id2',    
+                        title: 'Хорошо',
+                        he: {
+                            user: 'veged',
+                            count: 5,
+                            action: 'Я сделал хорошо.',
+                            button: 'сделал'
+                        },
+                        she: {
+                            user: 'lady_alice',
+                            count: 1,
+                            action: 'Я сделала хорошо',
+                            button: 'сделала'
+                        }
+                    }
+                };
 
             $(function(){
-			
+            
                 var setup = {};
-				
-				//$(".setup:not(.button-div)").hide();
-				
-				$("div.menu.setup-ok").click(function(){
-					$.each(logs, function(index, elmnt){
+                
+                //$(".setup:not(.button-div)").hide();
 
-						$(".setup:not(.button-div)").hide();
-						$("div:not(.setup)").show();
-						elmnt.title = $(".title-text").val();
-						elmnt.he.action = $(".he-action-text").val();
-						elmnt.she.action = $(".she-action-text").val();
-	
-					    if (couplelog[index] !== undefined) {
-							couplelog[index].destroy();
-					    };
 
-						couplelog[index] = new CoupleLog(elmnt, currentUser);
-						setup[index] = new Setup(elmnt);
-					});
+                
+                $("div.menu.setup-ok").click(function(){
+                    $.each(logs, function(index, elmnt){
 
-				});
-				
-				$(".button").click(function(){
-				    if (this.value == 'Он') {
-				        currentUser = 'veged';
-				    } else if (this.value == 'Она') {
-				        currentUser = 'lady_alice';
-				    };
+                        $(".setup:not(.button-div)").hide();
+                        $("div:not(.setup)").show();
+                        elmnt.title = $(".title-text").val();
+                        elmnt.he.action = $(".he-action-text").val();
+                        elmnt.she.action = $(".she-action-text").val();
+    
+                        if (couplelog[index] !== undefined) {
+                            couplelog[index].destroy();
+                        };
 
-					$(".setup").remove();
-					
-					$.each(logs, function(index, elmnt){
-	
-					    if (couplelog[index] !== undefined) {
-							couplelog[index].destroy();
-					    };
+                        couplelog[index] = new CoupleLog(elmnt, currentUser);
+                        setup[index] = new Setup(elmnt);
+                    });
 
-						couplelog[index] = new CoupleLog(elmnt, currentUser);
-						setup[index] = new Setup(elmnt);
-						$(".setup." + index + " > .menu").hide();
-
-					});
-					
-			//		$(".setup").hide();
-				//	$("setup.button-div").show();
-					
                 });
-            });	
+                
+                $(".button").click(function(){
+                    if (this.value == 'Он') {
+                        currentUser = 'veged';
+                    } else if (this.value == 'Она') {
+                        currentUser = 'lady_alice';
+                    };
 
-		</script>
-	</head>
-	<body>
+                    $(".setup").remove();
+                    
+                    $.each(logs, function(index, elmnt){
+    
+                        if (couplelog[index] !== undefined) {
+                            couplelog[index].destroy();
+                        };
+
+                        couplelog[index] = new CoupleLog(elmnt, currentUser);
+                        setup[index] = new Setup(elmnt);
+                        $(".setup." + index + " > .menu").hide();
+                    
+                    });
+/*
+                    $("h1").click(function(){
+                        $("div.couplelog." + index + "> div").slideToggle("fast");
+                        $("div.couplelog:not(." + index + ") > div").slideUp("fast");
+                        $(".setup").toggle();
+                    });
+*/
+                    $("h1").live("click", function(){
+                        $("div.couplelog." + index + "> div").slideToggle("fast");
+                        $("div.couplelog:not(." + index + ") > div").slideUp("fast");
+                        $(".setup").toggle();                        
+                    });
+                    
+                });
+            });    
+
+        </script>
+    </head>
+    <body>
         <div class="likelogin">
             <b>Кто вы?</b>
             <input type="radio" name="who" value="Он" class="button"/>Он
