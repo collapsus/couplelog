@@ -35,6 +35,7 @@
             
             _this.data.title = _this.titleText.val();
             _this.data[_this.couplelog.current].action = _this.actionText.val();
+            var active_id = _this.data.id;
             $.each(logs, function(index, element){
 
                 couplelog[index].destroy();
@@ -42,6 +43,11 @@
                 couplelog[index] = new CoupleLog(element, currentUser);
 
             });
+
+            $(".couplelog." + active_id + " h1").trigger("click");
+//            $(".couplelog." + active_id + " h1").siblings(".slide").show();
+//            $(".couplelog." + active_id + " h1").toggleClass("active");
+
         });
 
         this.menu.change(function(){
@@ -59,6 +65,7 @@
             if (selection != '') {
                 _this.data[_this.couplelog.current].button = selection;
                 alert('"' + _this.data[_this.couplelog.current].button + '" теперь кнопка');
+                $(_this.menu).trigger('change');
             };
         });
 
