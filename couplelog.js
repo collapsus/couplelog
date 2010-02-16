@@ -5,12 +5,13 @@
         if (data.she.user == currentUser) this.current = 'she';
         this.currentData = data[this.current];
         this.makeDOM();
+        this.setup = new Setup(this);
     };
 
     CoupleLog.prototype.makeHTML = function() {
         return ['<div class="couplelog ' + this.data.id + '">',
             '<h1>', this.data.title, '</h1>',
-            '<div class="slide-div">',
+            '<div class="slide">',
                 '<table cellpadding="0" cellspacing="0" width="100%">',
                     this.makeRowHTML('he', 'Он'),
                     '<tr class="gap"><td colspan="3"><i/></td></tr>',
@@ -72,7 +73,8 @@
                 actionButton: '.action :button',
                 cancel: '.cancel',
                 cancelButton: '.cancel :button',
-                h1Title: 'h1'
+                h1Title: 'h1',
+				slide: '.slide'
             }, function(k, v){
                 _this[k] = _this.elem.find(v);
             });
@@ -93,13 +95,14 @@
             _this.currentData.count--;
             _this.syncCounts();
         });
-/*        
+
         this.h1Title.click(function(){
-            $("div.couplelog." + _this.data.id + "> div").slideToggle("fast");
-            $("div.couplelog:not(." + _this.data.id + ") > div").slideUp("fast");
-            $(".setup > .button-div").toggle();
+            $("h1.active").removeClass("active");
+            $(this).siblings(".slide").slideToggle("fast");
+            $(this).toggleClass("active");
+            $("h1:not('.active')").siblings(".slide").slideUp("fast");
         });
-*/        
+
     };
 
     CoupleLog.prototype.syncCounts = function() {

@@ -51,12 +51,8 @@
             
                 var setup = {};
                 
-                //$(".setup:not(.button-div)").hide();
-
-
-                
                 $("div.menu.setup-ok").click(function(){
-                    $.each(logs, function(index, elmnt){
+                    $.each(logs, function(index, element){
 
                         $(".setup:not(.button-div)").hide();
                         $("div:not(.setup)").show();
@@ -68,11 +64,11 @@
                             couplelog[index].destroy();
                         };
 
-                        couplelog[index] = new CoupleLog(elmnt, currentUser);
-                        setup[index] = new Setup(elmnt);
+                        couplelog[index] = new CoupleLog(element, currentUser);
                     });
 
                 });
+
                 
                 $(".button").click(function(){
                     if (this.value == 'Он') {
@@ -81,32 +77,15 @@
                         currentUser = 'lady_alice';
                     };
 
-                    $(".setup").remove();
-                    
-                    $.each(logs, function(index, elmnt){
+                    $.each(logs, function(index, element){
     
                         if (couplelog[index] !== undefined) {
                             couplelog[index].destroy();
                         };
 
-                        couplelog[index] = new CoupleLog(elmnt, currentUser);
-                        setup[index] = new Setup(elmnt);
-                        $(".setup." + index + " > .menu").hide();
+                        couplelog[index] = new CoupleLog(element, currentUser);
                     
                     });
-/*
-                    $("h1").click(function(){
-                        $("div.couplelog." + index + "> div").slideToggle("fast");
-                        $("div.couplelog:not(." + index + ") > div").slideUp("fast");
-                        $(".setup").toggle();
-                    });
-*/
-                    $("h1").live("click", function(){
-                        $("div.couplelog." + index + "> div").slideToggle("fast");
-                        $("div.couplelog:not(." + index + ") > div").slideUp("fast");
-                        $(".setup").toggle();                        
-                    });
-                    
                 });
             });    
 

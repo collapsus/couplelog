@@ -16,6 +16,11 @@
         background-color:#F9F9F9;
     }
     
+    .couplelog h1:hover
+    {
+        background-color: #e3e2e2; 
+    }
+    
     .couplelog .counts
     {
         padding-left: 0.5em;
@@ -83,19 +88,18 @@
         text-align: left;
         background-color:#F9F9F9;
     }
-    
-    .button-div
+
+    div .slide
     {
-        text-align: right;
+/*        display: none;*/
+    }
+    
+    .setup .menu
+    {
+        display: none;
     }
 
-    .slide-div
+    .setup-button
     {
-        display: none;
+        margin: 0px 0px 10px 0px;
     }
-    
-    .setup
-    {
-        display: none;
-    }
-    

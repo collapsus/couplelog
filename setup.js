@@ -1,19 +1,18 @@
-    function Setup(data){
-        this.data = data;
+    function Setup(couplelog){
+        this.couplelog = couplelog;
+        this.data = this.couplelog.data;
         this.makeDOM();
     };
-    
+
     Setup.prototype.makeHTML = function(){
         return ['<div class="setup ' + this.data.id + '">',
-            '<div class="button-div">',
-                '<input type="button" value="Настройки" class="setup-button"/>',
-            '</div>',
+            '<input type="button" value="Настройки" class="setup-button"/>',
             '<div class="menu">',
-                '<input type="text" class="title-text" value="' + this.data.title + '"/>',
+                '<input type="text" class="title" value="' + this.data.title + '"/>',
                 '<br />',
-                '<input type="text" class="he-action-text" value="' + this.data.he.action + '"/> выделите мышкой ту часть текста, которую вы хотите сделать кнопкой',
+                '<input type="text" class="he-action" value="' + this.data.he.action + '"/> выделите мышкой ту часть текста, которую вы хотите сделать кнопкой',
                 '<br />',
-                '<input type="text" class="she-action-text" value="' + this.data.she.action + '"/>',        
+                '<input type="text" class="she-action" value="' + this.data.she.action + '"/>',
                 '<br />',
                 '<input type="button" class="setup-ok" value="OK"/>',
             '</div>',
@@ -21,22 +20,21 @@
     };
 
     Setup.prototype.makeDOM = function(){
-        this.elem = $(this.makeHTML()).appendTo('body');
+        this.elem = $(this.makeHTML()).prependTo(this.couplelog.slide);
         var _this = this;
         $.each({
-            setupButtonDiv: '.button-div',
             setupButton: '.setup-button',
-            titleText: '.title-text',
-            heActionText: '.he-action-text',
-            sheActionText: '.she-action-text',
+            titleText: '.title',
+            heActionText: '.he-action',
+            sheActionText: '.she-action',
             setupOk: '.setup-ok'
             }, function(k, v){
                 _this[k] = _this.elem.find(v);
             });
-        
+
         this.setupOk.click(function(){
             
-            $(".setup:not(.button-div)").hide();
+            $(".setup:not(.button)").hide();
             $("div:not(.setup)").show();
             _this.data.title = titleText.val();
             _this.data.he.action = heActionText.val();
@@ -52,7 +50,7 @@
         });
         
         this.setupButton.click(function(){
-            $(".setup." + _this.data.id + " > .menu").show();
+            $(this).siblings("div.menu").toggle();
         });
 
         this.heActionText.mouseup(function(){
@@ -77,5 +75,4 @@
             }
             return txt;
         }
-    }           
-    
+    }
