@@ -91,7 +91,7 @@
 
     div .slide
     {
-/*        display: none;*/
+        display: none;
     }
     
     .setup .menu
@@ -102,4 +102,9 @@
     .setup-button
     {
         margin: 0px 0px 10px 0px;
+    }
+
+    .setup input
+    {
+        margin: 5px 5px 5px 5px;
     }

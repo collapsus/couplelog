@@ -1,6 +1,7 @@
     function Setup(couplelog){
         this.couplelog = couplelog;
         this.data = this.couplelog.data;
+        this.current = this.data[this.couplelog.current];
         this.makeDOM();
     };
 
@@ -10,9 +11,7 @@
             '<div class="menu">',
                 '<input type="text" class="title" value="' + this.data.title + '"/>',
                 '<br />',
-                '<input type="text" class="he-action" value="' + this.data.he.action + '"/> выделите мышкой ту часть текста, которую вы хотите сделать кнопкой',
-                '<br />',
-                '<input type="text" class="she-action" value="' + this.data.she.action + '"/>',
+                '<input type="text" class="action" value="' + this.current.action + '"/> выделите мышкой ту часть текста, которую вы хотите сделать кнопкой',
                 '<br />',
                 '<input type="button" class="setup-ok" value="OK"/>',
             '</div>',
@@ -25,42 +24,42 @@
         $.each({
             setupButton: '.setup-button',
             titleText: '.title',
-            heActionText: '.he-action',
-            sheActionText: '.she-action',
-            setupOk: '.setup-ok'
+            actionText: '.action',
+            setupOk: '.setup-ok',
+            menu: '.menu'
             }, function(k, v){
                 _this[k] = _this.elem.find(v);
             });
 
         this.setupOk.click(function(){
             
-            $(".setup:not(.button)").hide();
-            $("div:not(.setup)").show();
-            _this.data.title = titleText.val();
-            _this.data.he.action = heActionText.val();
-            _this.data.she.action = sheActionText.val();
-    
-//            if (couplelog[index] !== undefined) {
-//                couplelog[index].destroy();
-//            };
-    
-//            couplelog[index] = new CoupleLog(elmnt, currentUser);
-//            setup[index] = new Setup(elmnt);
+            _this.data.title = _this.titleText.val();
+            _this.data[_this.couplelog.current].action = _this.actionText.val();
+            $.each(logs, function(index, element){
 
+                couplelog[index].destroy();
+
+                couplelog[index] = new CoupleLog(element, currentUser);
+
+            });
         });
-        
+
+        this.menu.change(function(){
+            $(_this.setupButton).attr("disabled", "disabled")
+            $(_this.setupOk).removeAttr("disabled")
+        });
+
         this.setupButton.click(function(){
             $(this).siblings("div.menu").toggle();
+            $(_this.setupOk).attr("disabled", "disabled");
         });
 
-        this.heActionText.mouseup(function(){
-            _this.data.he.button = $selection.getText();
-            alert('"' + _this.data.he.button + '" теперь кнопка');
-        });
-
-        this.sheActionText.mouseup(function(){
-            _this.data.she.button = $selection.getText();
-            alert('"' + _this.data.she.button + '" теперь кнопка');
+        this.actionText.mouseup(function(){
+            var selection = $selection.getText();
+            if (selection != '') {
+                _this.data[_this.couplelog.current].button = selection;
+                alert('"' + _this.data[_this.couplelog.current].button + '" теперь кнопка');
+            };
         });
 
     };

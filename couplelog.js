@@ -74,7 +74,7 @@
                 cancel: '.cancel',
                 cancelButton: '.cancel :button',
                 h1Title: 'h1',
-				slide: '.slide'
+                slide: '.slide'
             }, function(k, v){
                 _this[k] = _this.elem.find(v);
             });
