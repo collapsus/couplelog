@@ -13,6 +13,8 @@
                 '<br />',
                 '<input type="text" class="action" value="' + this.current.action + '"/> выделите мышкой ту часть текста, которую вы хотите сделать кнопкой',
                 '<br />',
+                '<input type="checkbox" class="checkbox"/> Обнулить счётчики',
+                '<br />',
                 '<input type="button" class="setup-ok" value="OK"/>',
             '</div>',
         '</div>'].join('');
@@ -26,15 +28,20 @@
             titleText: '.title',
             actionText: '.action',
             setupOk: '.setup-ok',
-            menu: '.menu'
-            }, function(k, v){
-                _this[k] = _this.elem.find(v);
-            });
+            menu: '.menu',
+            checkbox: '.checkbox'
+        }, function(k, v){
+            _this[k] = _this.elem.find(v);
+        });
 
         this.setupOk.click(function(){
             
             _this.data.title = _this.titleText.val();
             _this.data[_this.couplelog.current].action = _this.actionText.val();
+            if (_this.checkbox.attr("checked")) {
+                _this.data.he.count = 0;
+                _this.data.she.count = 0;
+            }
             var active_id = _this.data.id;
             $.each(logs, function(index, element){
 

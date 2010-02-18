@@ -7,6 +7,7 @@
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
         <script type="text/javascript" src="jquery.lint.js"></script>
         <script type="text/javascript" src="setup.js"></script>
+        <script type="text/javascript" src="addlog.js"></script>
         <script type="text/javascript" src="couplelog.js"></script>
         <script type="text/javascript">
             
@@ -48,27 +49,31 @@
                 };
 
             $(function(){
-            
+                
                 var setup = {};
                 
-                $("div.menu.setup-ok").click(function(){
-                    $.each(logs, function(index, element){
+                $(function(){
+                    var addLog = new AddLog(logs);
 
-                        $(".setup:not(.button-div)").hide();
-                        $("div:not(.setup)").show();
-                        elmnt.title = $(".title-text").val();
-                        elmnt.he.action = $(".he-action-text").val();
-                        elmnt.she.action = $(".she-action-text").val();
-    
-                        if (couplelog[index] !== undefined) {
-                            couplelog[index].destroy();
+                    $(".addlog .plus").click(function(){
+                        logs['id3'] = {
+                            id: 'id3',
+                            title: 'NEW',
+                            he: {
+                                user: 'veged',
+                                count: 3,
+                                action: 'Я помыл посуду.',
+                                button: 'помыл'
+                          },
+                            she: {
+                              user: 'lady_alice',
+                             count: 5,
+                             action: 'Я помыла посуду.',
+                             button: 'помыла'
+                         }
                         };
-
-                        couplelog[index] = new CoupleLog(element, currentUser);
                     });
-
                 });
-
                 
                 $(".button").click(function(){
                     if (this.value == 'Он') {
@@ -76,7 +81,7 @@
                     } else if (this.value == 'Она') {
                         currentUser = 'lady_alice';
                     };
-
+                    $(".addlog").show();
                     $.each(logs, function(index, element){
 
                         if (couplelog[index] !== undefined) {
