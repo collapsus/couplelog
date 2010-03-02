@@ -4,7 +4,7 @@
         height: 0.5em;
         width: 0.5em;
     }
-    
+
     .couplelog .title
     {
         padding-right: 0.5em;
@@ -16,74 +16,75 @@
         background-color:#F9F9F9;
         margin-bottom: 5px;
     }
-    
+
     .couplelog h1:hover
     {
-        background-color: #e3e2e2; 
+        background-color: #e3e2e2;
+        cursor: pointer;
     }
-    
+
     .couplelog .counts
     {
         padding-left: 0.5em;
     }
-    
+
     .couplelog .title,
     .couplelog .counts
     {
         white-space: nowrap;
     }
-    
+
     .couplelog .bar
     {
         float: left;
         height: 100%;
     }
-    
+
     .couplelog .he .bar
     {
         background-color: #00f;
     }
-    
+
     .couplelog .she .bar
     {
         background-color: #f00;
     }
-    
+
     .couplelog .in-min .bar-diff
     {
         background-color: #ccc;
     }
-    
+
     .couplelog .he .count
     {
         color: #00f;
     }
-    
+
     .couplelog .she .count
     {
         color: #f00;
     }
-    
+
     .couplelog .in-max .diff
     {
         display: none;
     }
-    
+
     .couplelog .diff .count-diff
     {
         color: #ccc;
     }
-    
+
     .couplelog form
     {
         padding-top: 1em;
     }
-    
+
     .couplelog form .cancel
     {
         display: none;
     }
-    
+
     .menu
     {
         text-align: left;
@@ -94,7 +95,13 @@
     {
         display: none;
     }
-    
+
+    div .canvas_container
+    {
+        height: 22px;
+        overflow: hidden;
+    }
+
     .setup .menu
     {
         display: none;
@@ -117,10 +124,15 @@
 
     input.text
     {
-        
+
     }
 
     .addlog
     {
         display: none;
+    }
+
+    table tbody
+    {
+        border: 1px solid #aaa;
     }

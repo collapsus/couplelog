@@ -5,16 +5,19 @@
         <title></title>
         <link rel="stylesheet" href="couplelog.css"/>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+        <script type="text/javascript" src="couplelog.js"></script>
         <script type="text/javascript" src="jquery.lint.js"></script>
         <script type="text/javascript" src="setup.js"></script>
         <script type="text/javascript" src="addlog.js"></script>
-        <script type="text/javascript" src="couplelog.js"></script>
+        <script type="text/javascript" src="raphael.js"></script>
+        <script type="text/javascript" src="raphaelpaint.js"></script>
+        <!--<script type="text/javascript" src="/Users/user/Documents/Raphael/our_script.js"></script>-->
         <script type="text/javascript">
-            
+
             var /*currentUser = 'veged',*/
                 couplelog = {},
                 logs = {
-                    'id1': {    
+                    'id1': {
                         id: 'id1',
                         title: 'Мытьё посуды',
                         he: {
@@ -31,7 +34,7 @@
                         }
                     },
                     'id2': {
-                        id: 'id2',    
+                        id: 'id2',
                         title: 'Хорошо',
                         he: {
                             user: 'veged',
@@ -49,32 +52,11 @@
                 };
 
             $(function(){
-                
-                var setup = {};
-                
+
                 $(function(){
                     var addLog = new AddLog(logs);
-
-                    $(".addlog .plus").click(function(){
-                        logs['id3'] = {
-                            id: 'id3',
-                            title: 'NEW',
-                            he: {
-                                user: 'veged',
-                                count: 3,
-                                action: 'Я помыл посуду.',
-                                button: 'помыл'
-                          },
-                            she: {
-                              user: 'lady_alice',
-                             count: 5,
-                             action: 'Я помыла посуду.',
-                             button: 'помыла'
-                         }
-                        };
-                    });
                 });
-                
+
                 $(".button").click(function(){
                     if (this.value == 'Он') {
                         currentUser = 'veged';
@@ -89,10 +71,18 @@
                         };
 
                         couplelog[index] = new CoupleLog(element, currentUser);
-                    
+
                     });
                 });
-            });    
+
+                //перерисовка баров при изменении размеров окна
+                $(window).resize(function(){
+                    $.each(logs, function(index, element){
+                        couplelog[index].sync();
+                    });
+
+                });
+            });
 
         </script>
     </head>
