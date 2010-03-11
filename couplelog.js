@@ -1,4 +1,4 @@
-function CoupleLog(data, currentUser) {
+function CoupleLog(couplelogCollection, data, currentUser) {
     this.data = data;
     this.current = '';
     if (data.he.user == currentUser) this.current = 'he';
@@ -6,18 +6,15 @@ function CoupleLog(data, currentUser) {
     this.currentData = data[this.current];
     this.makeDOM();
     this.setup = new Setup(this);
-
-//        this.mb = new ma_draw(document.getElementById('asdf'+ this.data.id));
-//        this.mb = new ma_draw(this);
 };
 
 CoupleLog.prototype.makeHTML = function() {
-    return ['<div class="couplelog ' + this.data.id + '">',
+    return ['<div class="couplelog">',
         '<h1>', this.data.title, '</h1>',
         '<div class="slide">',
             '<table cellpadding="0" cellspacing="0" width="100%">',
                 this.makeRowHTML('he', 'Он'),
-                '<tr class="gap"><td colspan="3" id="asdf ' + this.data.id + '"><i/></td></tr>',
+                '<tr class="gap"><td colspan="3"><i/></td></tr>',
                 this.makeRowHTML('she', 'Она'),
             '</table>',
             this.makeFormHTML(),
@@ -37,7 +34,7 @@ CoupleLog.prototype.makeRowHTML = function(who, whoTitle){
 
 CoupleLog.prototype.barsAndCountsHTML = [
     '<td style="width: 100%">',
-        '<div class="canvas_container"></div>',
+        '<div class="canvas-container"></div>',
     '</td>',
     '<td class="counts">',
         '<span class="count count-main"/>',
@@ -66,23 +63,23 @@ CoupleLog.prototype.makeDOM = function(html) {
     var slideFirstCall = 0;
     var _this = this;
     $.each({
-            he: '.he',
-            she: '.she',
-            heCanvasContainer: '.he .canvas_container',
-            sheCanvasContainer: '.she .canvas_container',
-            heCount: '.he .count-main',
-            sheCount: '.she .count-main',
-            diffCount: '.count-diff',
-            actionButton: '.action :button',
-            cancel: '.cancel',
-            cancelButton: '.cancel :button',
-            h1Title: 'h1',
-            slide: '.slide'
-        }, function(k, v){
-            _this[k] = _this.elem.find(v);
-        });
-    this.heBar = new Raph_bar(this.heCanvasContainer[0], 'blue');
-    this.sheBar = new Raph_bar(this.sheCanvasContainer[0], 'red');
+        he: '.he',
+        she: '.she',
+        heCanvasContainer: '.he .canvas-container',
+        sheCanvasContainer: '.she .canvas-container',
+        heCount: '.he .count-main',
+        sheCount: '.she .count-main',
+        diffCount: '.count-diff',
+        actionButton: '.action :button',
+        cancel: '.cancel',
+        cancelButton: '.cancel :button',
+        h1Title: 'h1',
+        slide: '.slide'
+    }, function(k, v){
+        _this[k] = _this.elem.find(v);
+    });
+    this.heBar = new RaphBar(this.heCanvasContainer, 'blue');
+    this.sheBar = new RaphBar(this.sheCanvasContainer, 'red');
 
     this.sync();
 
@@ -112,25 +109,14 @@ CoupleLog.prototype.makeDOM = function(html) {
         _this.sync();
     });
 
+
+    //перерисовка баров при изменении размеров окна
+    $(window).resize(function(){
+        _this.sync();
+    });
+
 };
-/*
-CoupleLog.prototype.syncCounts = function() {
-    var isHeMax = this.data.he.count > this.data.she.count,
-        counts = [this.data.he.count];
-    counts[isHeMax ? 'unshift' : 'push'](this.data.she.count);
 
-    this.heCount.text(this.data.he.count);
-    this.sheCount.text(this.data.she.count);
-    this.diffCount.text(counts[1] - counts[0]);
-
-    this.he.toggleClass('in-min', !isHeMax).toggleClass('in-max', isHeMax);
-    this.she.toggleClass('in-min', isHeMax).toggleClass('in-max', !isHeMax);
-
-    var barWidth = (counts[0] / counts[1]) * 100;
-    this.bar.width(barWidth + '%');
-    this.barDiff.width((100 - barWidth) + '%');
-};
-*/
 CoupleLog.prototype.sync = function(){
     var isHeMax = this.data.he.count > this.data.she.count,
         counts = [this.data.he.count],
@@ -174,14 +160,12 @@ CoupleLog.prototype.resize = function(pair, relation){
     };
 };
 
-
-
 CoupleLog.prototype.destroy = function(){
-    $(".couplelog." + this.data.id).remove();
+    $(this.elem).remove();
 };
 
-function Raph_bar (elem, color) {
-    this.elem = elem;
+function RaphBar (elem, color) {
+    this.elem = elem[0];
     this.paper = new Raphael(this.elem, $(this.elem).width(), 22);
     this.background = this.paper.rect(0, 0, $(this.elem).width()-2, 20);
     this.background.attr({fill: 'gray', stroke: 'black', 'stroke-width': 2});

@@ -105,6 +105,7 @@
     .setup .menu
     {
         display: none;
+        margin-bottom: 5px;
     }
 
     .setup-button
@@ -125,11 +126,6 @@
     input.text
     {
 
-    }
-
-    .addlog
-    {
-        display: none;
     }
 
     table tbody

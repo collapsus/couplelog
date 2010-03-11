@@ -9,13 +9,13 @@
         <script type="text/javascript" src="jquery.lint.js"></script>
         <script type="text/javascript" src="setup.js"></script>
         <script type="text/javascript" src="addlog.js"></script>
+        <script type="text/javascript" src="likelogin.js"></script>
         <script type="text/javascript" src="raphael.js"></script>
         <script type="text/javascript" src="raphaelpaint.js"></script>
         <!--<script type="text/javascript" src="/Users/user/Documents/Raphael/our_script.js"></script>-->
         <script type="text/javascript">
 
             var /*currentUser = 'veged',*/
-                couplelog = {},
                 logs = {
                     'id1': {
                         id: 'id1',
@@ -49,48 +49,67 @@
                             button: 'сделала'
                         }
                     }
-                };
-
+                },
+            couplelogCollection = new CoupleLogCollection(logs);
+/*
             $(function(){
 
-                $(function(){
-                    var addLog = new AddLog(logs);
-                });
-
-                $(".button").click(function(){
+                $(".select-who").change(function(){
+                    couplelogCollection.setCurrentUser('');
                     if (this.value == 'Он') {
-                        currentUser = 'veged';
+                        couplelogCollection.setCurrentUser('veged');
                     } else if (this.value == 'Она') {
-                        currentUser = 'lady_alice';
+                        couplelogCollection.setCurrentUser('lady_alice');
                     };
-                    $(".addlog").show();
-                    $.each(logs, function(index, element){
-
-                        if (couplelog[index] !== undefined) {
-                            couplelog[index].destroy();
-                        };
-
-                        couplelog[index] = new CoupleLog(element, currentUser);
-
-                    });
-                });
-
-                //перерисовка баров при изменении размеров окна
-                $(window).resize(function(){
-                    $.each(logs, function(index, element){
-                        couplelog[index].sync();
-                    });
-
+                    couplelogCollection.destroy();
+                    couplelogCollection.create();
                 });
             });
+*/
+
+            $(function(){
+                this.likeLogin = new LikeLogin(couplelogCollection);
+                couplelogCollection.setCurrentUser('');
+                couplelogCollection.create();
+            });
+
+// Коллекция CoupleLog-ов////////////
+            function CoupleLogCollection(logs){
+                this.logs = logs;
+                this.couplelogs = {};
+                this.h1Titles = {};
+//                this.create();
+            };
+
+            CoupleLogCollection.prototype.setCurrentUser = function(currentUser){
+                this.currentUser = currentUser;
+            };
+
+            CoupleLogCollection.prototype.create = function(){
+//                this.likeLogin = new LikeLogin(this);
+                this.addLog = new AddLog(logs, this.currentUser);
+                var _this = this;
+                $.each(this.logs, function(id, value) {
+                    _this.couplelogs[id] = new CoupleLog(_this, _this.logs[id], _this.currentUser);
+                });
+            };
+
+            CoupleLogCollection.prototype.destroy = function(){
+                var _this = this;
+                $.each(this.logs, function(id, value) {
+                    if (_this.couplelogs[id] != undefined) {
+                        _this.couplelogs[id].destroy();
+                        _this.addLog.destroy();
+                    }
+                });
+            };
+
+
+
+/////////////////////////////////////
 
         </script>
     </head>
     <body>
-        <div class="likelogin">
-            <b>Кто вы?</b>
-            <input type="radio" name="who" value="Он" class="button"/>Он
-            <input type="radio" name="who" value="Она" class="button"/>Она
-        </div>
     </body>
 </html>
