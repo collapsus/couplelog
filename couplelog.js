@@ -1,4 +1,5 @@
 function CoupleLog(couplelogCollection, data, currentUser) {
+    this.couplelogCollection = couplelogCollection;
     this.data = data;
     this.current = '';
     if (data.he.user == currentUser) this.current = 'he';
@@ -10,7 +11,7 @@ function CoupleLog(couplelogCollection, data, currentUser) {
 
 CoupleLog.prototype.makeHTML = function() {
     return ['<div class="couplelog">',
-        '<h1>', this.data.title, '</h1>',
+        '<h1><span>', this.data.title, '</span></h1>',
         '<div class="slide">',
             '<table cellpadding="0" cellspacing="0" width="100%">',
                 this.makeRowHTML('he', 'Он'),
@@ -60,7 +61,6 @@ CoupleLog.prototype.makeFormHTML = function(){
 
 CoupleLog.prototype.makeDOM = function(html) {
     this.elem = $(this.makeHTML()).appendTo('body');
-    var slideFirstCall = 0;
     var _this = this;
     $.each({
         he: '.he',
@@ -73,7 +73,7 @@ CoupleLog.prototype.makeDOM = function(html) {
         actionButton: '.action :button',
         cancel: '.cancel',
         cancelButton: '.cancel :button',
-        h1Title: 'h1',
+        title: 'h1',
         slide: '.slide'
     }, function(k, v){
         _this[k] = _this.elem.find(v);
@@ -99,16 +99,12 @@ CoupleLog.prototype.makeDOM = function(html) {
         _this.sync();
     });
 
-    this.h1Title.click(function(){
-        $("h1.active").removeClass("active");
-        $(this).siblings(".slide").slideToggle("fast");
-        $(this).toggleClass("active");
-        $("h1:not('.active')").siblings(".slide").slideUp("fast");
+    this.title.click(function(){
+        _this.couplelogCollection.makeCurrent(this);
         //вызывается перерисовка, потому как какойто глюк Рафаэля - если рисунок был невидим
         //(здесь в css выставлен display: none) то при после первого слайда он невидим
         _this.sync();
     });
-
 
     //перерисовка баров при изменении размеров окна
     $(window).resize(function(){

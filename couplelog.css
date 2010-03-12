@@ -14,13 +14,21 @@
     {
         text-align: center;
         background-color:#F9F9F9;
+        margin-top: 10px;
         margin-bottom: 5px;
+        padding-top: 5px;
+        padding-bottom: 5px;
     }
 
     .couplelog h1:hover
     {
         background-color: #e3e2e2;
         cursor: pointer;
+    }
+
+    h1 span
+    {
+        border-bottom: dotted 1px;
     }
 
     .couplelog .counts
@@ -131,4 +139,9 @@
     table tbody
     {
         border: 1px solid #aaa;
+    }
+
+    .likelogin
+    {
+        margin-bottom: 10px;
     }

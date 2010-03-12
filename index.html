@@ -6,6 +6,7 @@
         <link rel="stylesheet" href="couplelog.css"/>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
         <script type="text/javascript" src="couplelog.js"></script>
+        <script type="text/javascript" src="couplelogcollection.js"></script>
         <script type="text/javascript" src="jquery.lint.js"></script>
         <script type="text/javascript" src="setup.js"></script>
         <script type="text/javascript" src="addlog.js"></script>
@@ -51,62 +52,12 @@
                     }
                 },
             couplelogCollection = new CoupleLogCollection(logs);
-/*
-            $(function(){
-
-                $(".select-who").change(function(){
-                    couplelogCollection.setCurrentUser('');
-                    if (this.value == 'Он') {
-                        couplelogCollection.setCurrentUser('veged');
-                    } else if (this.value == 'Она') {
-                        couplelogCollection.setCurrentUser('lady_alice');
-                    };
-                    couplelogCollection.destroy();
-                    couplelogCollection.create();
-                });
-            });
-*/
 
             $(function(){
-                this.likeLogin = new LikeLogin(couplelogCollection);
+                couplelogCollection.likeLogin = new LikeLogin(couplelogCollection);
                 couplelogCollection.setCurrentUser('');
                 couplelogCollection.create();
             });
-
-// Коллекция CoupleLog-ов////////////
-            function CoupleLogCollection(logs){
-                this.logs = logs;
-                this.couplelogs = {};
-                this.h1Titles = {};
-//                this.create();
-            };
-
-            CoupleLogCollection.prototype.setCurrentUser = function(currentUser){
-                this.currentUser = currentUser;
-            };
-
-            CoupleLogCollection.prototype.create = function(){
-//                this.likeLogin = new LikeLogin(this);
-                this.addLog = new AddLog(logs, this.currentUser);
-                var _this = this;
-                $.each(this.logs, function(id, value) {
-                    _this.couplelogs[id] = new CoupleLog(_this, _this.logs[id], _this.currentUser);
-                });
-            };
-
-            CoupleLogCollection.prototype.destroy = function(){
-                var _this = this;
-                $.each(this.logs, function(id, value) {
-                    if (_this.couplelogs[id] != undefined) {
-                        _this.couplelogs[id].destroy();
-                        _this.addLog.destroy();
-                    }
-                });
-            };
-
-
-
-/////////////////////////////////////
 
         </script>
     </head>

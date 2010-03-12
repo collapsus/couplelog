@@ -1,6 +1,7 @@
-function AddLog(logs, currentUser){
+function AddLog(couplelogCollection, currentUser){
     if (currentUser == "") {return;}
-    this.logs = logs;
+    this.couplelogCollection = couplelogCollection;
+    this.logs = couplelogCollection.logs;
     this.makeDOM();
 };
 
@@ -37,7 +38,6 @@ AddLog.prototype.makeDOM = function(){
     });
 
     this.ok.click(function(){
-//            var next_id = _this.logs['id2'].id.match(/[0-9]+/);
         var next_id = hashLength(_this.logs);
         function hashLength(hash)
         {
@@ -65,6 +65,7 @@ AddLog.prototype.makeDOM = function(){
             }
         };
         $(_this.addButton).trigger("click");
+        $(_this.couplelogCollection.likeLogin.selectWho).trigger("change");
     });
 
     this.cancel.click(function(){
