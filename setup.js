@@ -20,6 +20,8 @@ Setup.prototype.makeHTML = function(){
             '<br />',
             '<input type="button" class="setup-ok" value="OK"/>',
             '<input type="button" class="setup-cancel" value="Cancel"/>',
+            '<br />',
+            '<input type="button" class="setup-deletelog" value="Удалить список"/>',
         '</div>',
     '</div>'].join('');
 };
@@ -35,7 +37,8 @@ Setup.prototype.makeDOM = function(){
         setupOk: '.setup-ok',
         setupCancel: '.setup-cancel',
         menu: '.menu',
-        checkbox: '.checkbox'
+        checkbox: '.checkbox',
+        deletelog: ".setup-deletelog"
     }, function(k, v){
         _this[k] = _this.elem.find(v);
     });
@@ -66,6 +69,10 @@ Setup.prototype.makeDOM = function(){
     this.setupButton.click(function(){
         $(_this.menu).toggle();
         $(_this.setupButton).hide();
+    });
+
+    this.deletelog.click(function(){
+        _this.couplelog.destroy();
     });
 
 };
