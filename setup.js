@@ -1,5 +1,6 @@
-function Setup(couplelog){
+function Setup(couplelogCollection, couplelog){
     if (couplelog.current == "") {return;}
+    this.couplelogCollection = couplelogCollection;
     this.couplelog = couplelog;
     this.data = this.couplelog.data;
     this.current = this.data[this.couplelog.current];
@@ -12,11 +13,13 @@ Setup.prototype.makeHTML = function(){
         '<div class="menu">',
             '<input type="text" class="title" value="' + this.data.title + '"/>',
             '<br />',
-            '<input type="text" class="action" value="' + this.current.action + '"/> выделите мышкой ту часть текста, которую вы хотите сделать кнопкой',
+            '<input type="text" class="action" value="' + this.current.action + '"/> ',
+            '<input type="text" class="action-button" value="' + this.current.button + '"/>',
             '<br />',
             '<input type="checkbox" class="checkbox"/> Обнулить счётчики',
             '<br />',
             '<input type="button" class="setup-ok" value="OK"/>',
+            '<input type="button" class="setup-cancel" value="Cancel"/>',
         '</div>',
     '</div>'].join('');
 };
@@ -28,7 +31,9 @@ Setup.prototype.makeDOM = function(){
         setupButton: '.setup-button',
         titleText: '.title',
         actionText: '.action',
+        actionButton: '.action-button',
         setupOk: '.setup-ok',
+        setupCancel: '.setup-cancel',
         menu: '.menu',
         checkbox: '.checkbox'
     }, function(k, v){
@@ -39,54 +44,28 @@ Setup.prototype.makeDOM = function(){
 
         _this.data.title = _this.titleText.val();
         _this.data[_this.couplelog.current].action = _this.actionText.val();
+        _this.data[_this.couplelog.current].button = _this.actionButton.val();
         if (_this.checkbox.attr("checked")) {
             _this.data.he.count = 0;
             _this.data.she.count = 0;
         }
-        var active_id = _this.data.id;
-        $.each(logs, function(index, element){
-
-            couplelog[index].destroy();
-
-            couplelog[index] = new CoupleLog(element, currentUser);
-
-        });
-
-        $(".couplelog." + active_id + " h1").trigger("click");
-
+        _this.couplelogCollection.destroy();
+        _this.couplelogCollection.create();
+// надо как-то добавить разворачивание этого же списка после внесения изменений
     });
 
-    this.menu.change(function(){
-        $(_this.setupButton).attr("disabled", "disabled")
-        $(_this.setupOk).removeAttr("disabled")
+    this.setupCancel.click(function(){
+        _this.titleText.val(_this.data.title);
+        _this.actionText.val(_this.data[_this.couplelog.current].action);
+        _this.actionButton.val(_this.data[_this.couplelog.current].button);
+        _this.checkbox[0].checked = false;
+        $(_this.setupButton).show();
+        $(_this.menu).toggle();
     });
 
     this.setupButton.click(function(){
-        $(this).siblings("div.menu").toggle();
-        $(_this.setupOk).attr("disabled", "disabled");
-    });
-
-    this.actionText.mouseup(function(){
-        console.log((txt = window.getSelection) == true);
-        console.log(window.getSelection().toString());
-        var selection = $selection.getText();
-        if (selection != '') {
-            _this.data[_this.couplelog.current].button = selection;
-            alert('"' + _this.data[_this.couplelog.current].button + '" теперь кнопка');
-            $(_this.menu).trigger('change');
-        };
+        $(_this.menu).toggle();
+        $(_this.setupButton).hide();
     });
 
 };
-
-$selection = {
-    getText : function() {
-        var txt = '';
-        if (txt = window.getSelection) {
-            txt = window.getSelection().toString();
-        } else {
-            txt = document.selection.createRange().text;
-        }
-        return txt;
-    }
-}

@@ -65,7 +65,8 @@ AddLog.prototype.makeDOM = function(){
             }
         };
         $(_this.addButton).trigger("click");
-        $(_this.couplelogCollection.likeLogin.selectWho).trigger("change");
+        _this.couplelogCollection.destroy();
+        _this.couplelogCollection.create();
     });
 
     this.cancel.click(function(){

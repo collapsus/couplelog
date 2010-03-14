@@ -6,7 +6,7 @@ function CoupleLog(couplelogCollection, data, currentUser) {
     if (data.she.user == currentUser) this.current = 'she';
     this.currentData = data[this.current];
     this.makeDOM();
-    this.setup = new Setup(this);
+    this.setup = new Setup(this.couplelogCollection, this);
 };
 
 CoupleLog.prototype.makeHTML = function() {
@@ -103,7 +103,7 @@ CoupleLog.prototype.makeDOM = function(html) {
         _this.couplelogCollection.makeCurrent(this);
         //вызывается перерисовка, потому как какойто глюк Рафаэля - если рисунок был невидим
         //(здесь в css выставлен display: none) то при после первого слайда он невидим
-        _this.sync();
+        _this.sync();//перересовку иногда отключаю из-за глюка в фаерфоксе/фаербаге (при дэбаге не разворачивается адекватно)
     });
 
     //перерисовка баров при изменении размеров окна

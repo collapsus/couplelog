@@ -145,3 +145,8 @@
     {
         margin-bottom: 10px;
     }
+
+    h1.active
+    {
+        color: #00008b;
+    }
