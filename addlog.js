@@ -48,8 +48,9 @@ AddLog.prototype.makeDOM = function(){
         }
 
         next_id++;
-        _this.logs[next_id] = {
-            id: 'id' + next_id,
+        var currentId = 'id' + next_id;
+        _this.logs[currentId] = {
+            id: currentId,
             title: _this.inputText.val(),
             he: {
                 user: 'veged',
@@ -65,8 +66,7 @@ AddLog.prototype.makeDOM = function(){
             }
         };
         $(_this.addButton).trigger("click");
-        _this.couplelogCollection.destroy();
-        _this.couplelogCollection.create();
+        _this.couplelogCollection.couplelogs[currentId] = new CoupleLog(_this.couplelogCollection, _this.couplelogCollection.logs[currentId], _this.currentUser);
     });
 
     this.cancel.click(function(){
