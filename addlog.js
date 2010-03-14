@@ -66,7 +66,7 @@ AddLog.prototype.makeDOM = function(){
             }
         };
         $(_this.addButton).trigger("click");
-        _this.couplelogCollection.couplelogs[currentId] = new CoupleLog(_this.couplelogCollection, _this.couplelogCollection.logs[currentId], _this.currentUser);
+        _this.couplelogCollection.couplelogs[currentId] = new CoupleLog(_this.couplelogCollection, _this.couplelogCollection.logs[currentId], _this.couplelogCollection.currentUser);
     });
 
     this.cancel.click(function(){

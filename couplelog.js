@@ -81,7 +81,7 @@ CoupleLog.prototype.makeDOM = function(html) {
     this.heBar = new RaphBar(this.heCanvasContainer, 'blue');
     this.sheBar = new RaphBar(this.sheCanvasContainer, 'red');
 
-    this.sync();
+//    this.sync();    //по идее лишний вызов
 
     this.actionButton.click(function(){
         $(this).attr('disabled', 'disabled').animate({disabled: ''}, 1000);
@@ -126,11 +126,16 @@ CoupleLog.prototype.sync = function(){
         };
     counts[isHeMax ? 'unshift' : 'push'](this.data.she.count);
 
-    if (isHeMax) {
-        relation.forhe = 1, relation.forshe = (counts[0] / counts[1])
+    if ((this.data.he.count == 0) && (this.data.she.count == 0)) {
+        relation.forhe = 0;
+        relation.forshe = 0;
     } else {
-        relation.forshe = 1, relation.forhe = (counts[0] / counts[1])
-    };
+        if (isHeMax) {
+            relation.forhe = 1, relation.forshe = (counts[0] / counts[1])
+        } else {
+            relation.forshe = 1, relation.forhe = (counts[0] / counts[1])
+        };
+    }
 
     var diff = counts[1] - counts[0];
     this.he.toggleClass('in-min', !isHeMax).toggleClass('in-max', isHeMax);
