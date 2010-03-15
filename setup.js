@@ -69,10 +69,17 @@ Setup.prototype.makeDOM = function(){
     this.setupButton.click(function(){
         $(_this.menu).toggle();
         $(_this.setupButton).hide();
+        if ((_this.data.he.count == 0) && (_this.data.she.count == 0)) {
+            _this.checkbox.attr("disabled", "disabled");
+        } else {
+            _this.checkbox.attr("disabled", "");
+        };
     });
 
     this.deletelog.click(function(){
-        _this.couplelog.destroy();
+        if (confirm("Вы действительно хотите удалить этот список?")) {
+            _this.couplelog.destroy();
+        }
     });
 
 };

@@ -155,9 +155,10 @@ CoupleLog.prototype.recount = function(pair, diff){
 
 CoupleLog.prototype.resize = function(pair, relation){
     for (var who in pair) {
-        this[who + 'Bar'].paper.setSize($(this[who + 'CanvasContainer']).width(), 22);
-        this[who + 'Bar'].background.attr({width: $(this[who + 'CanvasContainer']).width() - 2});
-        this[who + 'Bar'].bar.attr("width", this[who + 'Bar'].background.getBBox().width * relation['for' + who] -2);
+        var currentThis = this[who + 'Bar'];
+        currentThis.paper.setSize($(this[who + 'CanvasContainer']).width(), 22);
+        currentThis.background.attr({width: $(this[who + 'CanvasContainer']).width() - 2});
+        currentThis.bar.attr("width", currentThis.background.getBBox().width * relation['for' + who] -2);
     };
 };
 
