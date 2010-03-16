@@ -1,4 +1,6 @@
 function CoupleLog(couplelogCollection, data, currentUser) {
+    this.hePerson = new Person('he');
+    this.shePerson = new Person('she');
     this.couplelogCollection = couplelogCollection;
     this.data = data;
     this.current = '';
@@ -63,12 +65,6 @@ CoupleLog.prototype.makeDOM = function(html) {
     this.elem = $(this.makeHTML()).appendTo('body');
     var _this = this;
     $.each({
-        he: '.he',
-        she: '.she',
-        heCanvasContainer: '.he .canvas-container',
-        sheCanvasContainer: '.she .canvas-container',
-        heCount: '.he .count-main',
-        sheCount: '.she .count-main',
         diffCount: '.count-diff',
         actionButton: '.action :button',
         cancel: '.cancel',
@@ -78,10 +74,12 @@ CoupleLog.prototype.makeDOM = function(html) {
     }, function(k, v){
         _this[k] = _this.elem.find(v);
     });
-    this.heBar = new RaphBar(this.heCanvasContainer, 'blue');
-    this.sheBar = new RaphBar(this.sheCanvasContainer, 'red');
 
-//    this.sync();    //по идее лишний вызов
+    this.hePerson.pMakeDOM(this);
+    this.shePerson.pMakeDOM(this);
+
+    this.hePerson.pMakeBar('blue');
+    this.shePerson.pMakeBar('red');
 
     this.actionButton.click(function(){
         $(this).attr('disabled', 'disabled').animate({disabled: ''}, 1000);
@@ -101,8 +99,12 @@ CoupleLog.prototype.makeDOM = function(html) {
 
     this.title.click(function(){
         _this.couplelogCollection.makeCurrent(this);
+        if (_this.setup.menu != undefined) {
+            _this.setup.menu.slideUp("fast");
+            _this.setup.setupButton.slideDown("fast");
+        };
         //вызывается перерисовка, потому как какойто глюк Рафаэля - если рисунок был невидим
-        //(здесь в css выставлен display: none) то при после первого слайда он невидим
+        //(здесь в css выставлен display: none) то после первого слайда он невидим
         _this.sync();//перересовку иногда отключаю из-за глюка в фаерфоксе/фаербаге (при дэбаге не разворачивается адекватно)
     });
 
@@ -138,8 +140,8 @@ CoupleLog.prototype.sync = function(){
     }
 
     var diff = counts[1] - counts[0];
-    this.he.toggleClass('in-min', !isHeMax).toggleClass('in-max', isHeMax);
-    this.she.toggleClass('in-min', isHeMax).toggleClass('in-max', !isHeMax);
+    this.hePerson.row.toggleClass('in-min', !isHeMax).toggleClass('in-max', isHeMax);
+    this.shePerson.row.toggleClass('in-min', isHeMax).toggleClass('in-max', !isHeMax);
     //разделено на две отдельные функции (а не объединено в одну как было ранее) чтобы сначала пересчитывать
     //обе цифры, а только после этого перерисовывать оба бара
     this.recount(pair, diff);
@@ -148,17 +150,14 @@ CoupleLog.prototype.sync = function(){
 
 CoupleLog.prototype.recount = function(pair, diff){
     for (var who in pair) {
-        this[who + 'Count'].text("" + this.data[who].count);
+        this[who + 'Person'].count.text("" + this.data[who].count);
     };
     this.diffCount.text("" + diff);
 };
 
 CoupleLog.prototype.resize = function(pair, relation){
     for (var who in pair) {
-        var currentThis = this[who + 'Bar'];
-        currentThis.paper.setSize($(this[who + 'CanvasContainer']).width(), 22);
-        currentThis.background.attr({width: $(this[who + 'CanvasContainer']).width() - 2});
-        currentThis.bar.attr("width", currentThis.background.getBBox().width * relation['for' + who] -2);
+        this[who + 'Person'].pResize(relation);
     };
 };
 
@@ -166,7 +165,7 @@ CoupleLog.prototype.destroy = function(){
     $(this.elem).remove();
 };
 
-function RaphBar (elem, color) {
+function RaphBar(elem, color){
     this.elem = elem[0];
     this.paper = new Raphael(this.elem, $(this.elem).width(), 22);
     this.background = this.paper.rect(0, 0, $(this.elem).width()-2, 20);
@@ -175,3 +174,28 @@ function RaphBar (elem, color) {
     this.bar.attr({fill: color, stroke: 'none'});
 };
 
+function Person(who){
+    this.who = who;
+};
+
+Person.prototype.pResize = function(relation){
+    this.bar.paper.setSize($(this.canvasContainer).width(), 22);
+    this.bar.background.attr({width: $(this.canvasContainer).width() - 2});
+    this.bar.bar.attr("width", this.bar.background.getBBox().width * relation['for' + this.who] -2);
+};
+
+Person.prototype.pMakeBar = function(color){
+    this.bar = new RaphBar(this.canvasContainer, color);
+};
+
+Person.prototype.pMakeDOM = function(couplelog){
+    this.couplelog = couplelog;
+    var _this = this;
+    $.each({
+        row: '.' + this.who,
+        canvasContainer: '.' + this.who + ' .canvas-container',
+        count: '.' + this.who + ' .count-main'
+    }, function(k, v){
+        _this[k] = _this.couplelog.elem.find(v);
+    });
+};
