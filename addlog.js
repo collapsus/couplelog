@@ -1,5 +1,5 @@
 function AddLog(couplelogCollection, currentUser){
-    if (currentUser == "") {return;}
+    if (!currentUser) return;
     this.couplelogCollection = couplelogCollection;
     this.logs = couplelogCollection.logs;
     this.makeDOM();

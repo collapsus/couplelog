@@ -1,7 +1,6 @@
 function CoupleLogCollection(logs){
     this.logs = logs;
     this.couplelogs = {};
-    this.h1Titles = {};
 };
 
 CoupleLogCollection.prototype.setCurrentUser = function(currentUser){

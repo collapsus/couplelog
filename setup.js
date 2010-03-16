@@ -69,11 +69,7 @@ Setup.prototype.makeDOM = function(){
     this.setupButton.click(function(){
         $(_this.menu).toggle();
         $(_this.setupButton).hide();
-        if ((_this.data.he.count == 0) && (_this.data.she.count == 0)) {
-            _this.checkbox.attr("disabled", "disabled");
-        } else {
-            _this.checkbox.attr("disabled", "");
-        };
+        _this.checkbox.attr("disabled", _this.data.he.count + _this.data.she.count == 0 ? "disabled" : "")
     });
 
     this.deletelog.click(function(){
