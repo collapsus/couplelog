@@ -8,7 +8,7 @@ function Setup(couplelogCollection, couplelog){
 };
 
 Setup.prototype.makeHTML = function(){
-    return ['<div class="setup ' + this.data.id + '">',
+    return ['<div class="setup">',
         '<input type="button" value="Настройки" class="setup-button"/>',
         '<div class="menu">',
             '<input type="text" class="title" value="' + this.data.title + '"/>',
@@ -22,6 +22,12 @@ Setup.prototype.makeHTML = function(){
             '<input type="button" class="setup-cancel" value="Cancel"/>',
             '<br />',
             '<input type="button" class="setup-deletelog" value="Удалить список"/>',
+        '</div>',
+        '<div class="accept">',
+            'Вы действительно хотите удалить этот список?',
+            '<br />',
+            '<input type="button" class="accept-ok" value="OK">',
+            '<input type="button" class="accept-cancel" value="Cancel">',
         '</div>',
     '</div>'].join('');
 };
@@ -38,7 +44,10 @@ Setup.prototype.makeDOM = function(){
         setupCancel: '.setup-cancel',
         menu: '.menu',
         checkbox: '.checkbox',
-        deletelog: ".setup-deletelog"
+        deletelog: ".setup-deletelog",
+        accept: ".accept",
+        acceptOk: ".accept-ok",
+        acceptCancel: ".accept-cancel"
     }, function(k, v){
         _this[k] = _this.elem.find(v);
     });
@@ -73,9 +82,16 @@ Setup.prototype.makeDOM = function(){
     });
 
     this.deletelog.click(function(){
-        if (confirm("Вы действительно хотите удалить этот список?")) {
-            _this.couplelog.destroy();
-        }
+        _this.deletelog.toggle();
+        _this.accept.toggle();
+    });
+
+    this.acceptOk.click(function(){
+        _this.couplelog.destroy();
+    });
+
+    this.acceptCancel.click(function(){
+        _this.deletelog.trigger("click");
     });
 
 };
