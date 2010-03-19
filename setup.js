@@ -88,6 +88,7 @@ Setup.prototype.makeDOM = function(){
 
     this.acceptOk.click(function(){
         _this.couplelog.destroy();
+        delete _this.couplelogCollection.logs[_this.couplelog.data.id];
     });
 
     this.acceptCancel.click(function(){
