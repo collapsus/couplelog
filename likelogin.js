@@ -1,5 +1,6 @@
 function LikeLogin(couplelogCollection){
     this.couplelogCollection = couplelogCollection;
+    this.couplelogCollection.body = $('body');
     this.makeDOM();
 };
 
@@ -18,7 +19,7 @@ LikeLogin.prototype.makeHTML = function(){
 };
 
 LikeLogin.prototype.makeDOM = function(){
-    this.elem = $(this.makeHTML()).appendTo('body');
+    this.elem = $(this.makeHTML()).appendTo(this.couplelogCollection.body);
     var _this = this;
     $.each({
         selectWho: '.select-who'

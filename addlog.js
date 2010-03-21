@@ -38,17 +38,8 @@ AddLog.prototype.makeDOM = function(){
     });
 
     this.ok.click(function(){
-        var next_id = hashLength(_this.logs);
-        function hashLength(hash)
-        {
-            var counter = 0; // Иницилизируем счетчик
-            for( var k in hash ) // Перебираем хэш, полученный нами в параметрах.
-                counter++; // Считаем очередной элемент
-            return counter; // Возвращаем сколько насчитали
-        }
-
-        next_id++;
-        var currentId = 'id' + next_id;
+        _this.logs.counter++;
+        var currentId = 'id' + _this.logs.counter;
         _this.logs[currentId] = {
             id: currentId,
             title: _this.inputText.val(),
