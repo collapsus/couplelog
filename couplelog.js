@@ -112,6 +112,7 @@ CoupleLog.prototype.makeDOM = function(html) {
     //перерисовка баров при изменении размеров окна
     $(window).resize(function(){
         _this.sync();
+        console.log('sync');
     });
 
 };
@@ -145,6 +146,7 @@ CoupleLog.prototype.sync = function(){
     this.shePerson.row.toggleClass('in-min', isHeMax).toggleClass('in-max', !isHeMax);
     //разделено на две отдельные функции (а не объединено в одну как было ранее) чтобы сначала пересчитывать
     //обе цифры, а только после этого перерисовывать оба бара
+    console.log(this.data.title);
     this.recount(pair, diff);
     this.resize(pair, relation);
 };
@@ -167,9 +169,12 @@ CoupleLog.prototype.destroy = function(){
 };
 
 function RaphBar(elem, color){
+    var currentWidth = $(this.elem).width(),
+        coeff = currentWidth ? 1 : 0;
+    console.log('RaphBar currentWidth:', currentWidth, ' coeff:', coeff);
     this.elem = elem[0];
-    this.paper = new Raphael(this.elem, $(this.elem).width(), 22);
-    this.background = this.paper.rect(0, 0, $(this.elem).width()-2, 20);
+    this.paper = new Raphael(this.elem, currentWidth, 22);
+    this.background = this.paper.rect(0, 0, currentWidth - 2 * coeff, 20);
     this.background.attr({fill: 'gray', stroke: 'black', 'stroke-width': 2});
     this.bar = this.paper.rect(1, 1, 0, 18);
     this.bar.attr({fill: color, stroke: 'none'});
@@ -180,9 +185,13 @@ function Person(who){
 };
 
 Person.prototype.pResize = function(relation){
-    this.bar.paper.setSize($(this.canvasContainer).width(), 22);
-    this.bar.background.attr({width: $(this.canvasContainer).width() - 2});
-    this.bar.bar.attr("width", this.bar.background.getBBox().width * relation['for' + this.who] -2);
+    var currentWidth = $(this.canvasContainer).width(),
+        coeff = currentWidth ? 1 : 0;
+    this.bar.paper.setSize(currentWidth, 22);
+    console.log('pResize currentWidth:', currentWidth, 'coeff', coeff, ' relation:', relation);
+    this.bar.background.attr({width: currentWidth - 2 * coeff});
+    this.bar.bar.attr("width", currentWidth * relation['for' + this.who] - 2 * coeff);
+    console.log(this.bar.background.getBBox().width);
 };
 
 Person.prototype.pMakeBar = function(color){
