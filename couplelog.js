@@ -99,20 +99,20 @@ CoupleLog.prototype.makeDOM = function(html) {
     });
 
     this.title.click(function(){
+        console.log($(_this.hePerson.canvasContainer).width());
         _this.couplelogCollection.makeCurrent(this);
+        console.log($(_this.hePerson.canvasContainer).width());
         if (_this.setup.menu != undefined) {
             _this.setup.menu.slideUp("fast");
             _this.setup.setupButton.slideDown("fast");
         };
-        //вызывается перерисовка, потому как какойто глюк Рафаэля - если рисунок был невидим
-        //(здесь в css выставлен display: none) то после первого слайда он невидим
         _this.sync();//перересовку иногда отключаю из-за глюка в фаерфоксе/фаербаге (при дэбаге не разворачивается адекватно)
+//        console.log("sync in title.click");
     });
 
     //перерисовка баров при изменении размеров окна
     $(window).resize(function(){
         _this.sync();
-        console.log('sync');
     });
 
 };
@@ -127,18 +127,17 @@ CoupleLog.prototype.sync = function(){
         pair = {
             he: 'he',
             she: 'she'
-        };
+        },
+        who = ['he'];
     counts[isHeMax ? 'unshift' : 'push'](this.data.she.count);
 
     if ((this.data.he.count == 0) && (this.data.she.count == 0)) {
         relation.forhe = 0;
         relation.forshe = 0;
     } else {
-        if (isHeMax) {
-            relation.forhe = 1, relation.forshe = (counts[0] / counts[1])
-        } else {
-            relation.forshe = 1, relation.forhe = (counts[0] / counts[1])
-        };
+        who[isHeMax ? 'unshift' : 'push']('she');
+        relation['for' + who[1]] = 1;
+        relation['for' + who[0]] = (counts[0] / counts[1]);
     }
 
     var diff = counts[1] - counts[0];
@@ -146,7 +145,7 @@ CoupleLog.prototype.sync = function(){
     this.shePerson.row.toggleClass('in-min', isHeMax).toggleClass('in-max', !isHeMax);
     //разделено на две отдельные функции (а не объединено в одну как было ранее) чтобы сначала пересчитывать
     //обе цифры, а только после этого перерисовывать оба бара
-    console.log(this.data.title);
+//    console.log(this.data.title);
     this.recount(pair, diff);
     this.resize(pair, relation);
 };
@@ -171,7 +170,7 @@ CoupleLog.prototype.destroy = function(){
 function RaphBar(elem, color){
     var currentWidth = $(this.elem).width(),
         coeff = currentWidth ? 1 : 0;
-    console.log('RaphBar currentWidth:', currentWidth, ' coeff:', coeff);
+//    console.log('RaphBar currentWidth:', currentWidth, ' coeff:', coeff);
     this.elem = elem[0];
     this.paper = new Raphael(this.elem, currentWidth, 22);
     this.background = this.paper.rect(0, 0, currentWidth - 2 * coeff, 20);
@@ -185,13 +184,27 @@ function Person(who){
 };
 
 Person.prototype.pResize = function(relation){
+    console.log("до", this.bar.paper.width, this.bar.paper.height);
+    this.bar.paper.width = 0;
+    this.bar.paper.height = 0;
+    console.log("после", this.bar.paper.width, this.bar.paper.height);
+    console.log("до display: none  ", this.canvasContainer.width(), this.canvasContainer.height());
+    $(this.canvasContainer).children().attr("display", "none");
+    console.log("после display: none  ", this.canvasContainer.width(), this.canvasContainer.height());
+    console.log("before", this.canvasContainer.width(), this.canvasContainer.height());
+    $(this.canvasContainer).width("100%");
+    console.log("width: 100процентов  ", this.canvasContainer.width(), "при этом this.bar.paper.width == ", this.bar.paper.width);
+    console.log("after", this.canvasContainer.width(), this.canvasContainer.height());
     var currentWidth = $(this.canvasContainer).width(),
         coeff = currentWidth ? 1 : 0;
     this.bar.paper.setSize(currentWidth, 22);
-    console.log('pResize currentWidth:', currentWidth, 'coeff', coeff, ' relation:', relation);
+    console.log("после setSize  ", this.canvasContainer.width(), this.canvasContainer.height());
     this.bar.background.attr({width: currentWidth - 2 * coeff});
     this.bar.bar.attr("width", currentWidth * relation['for' + this.who] - 2 * coeff);
-    console.log(this.bar.background.getBBox().width);
+    console.log("до display: block  ", this.canvasContainer.width(), this.canvasContainer.height());
+    $(this.canvasContainer).children().attr("display", "block");
+    console.log("после display: block  ", this.canvasContainer.width(), this.canvasContainer.height());
+    console.log("--------------------------------------------------------------pResizeEnd--------------------------------------------------------");
 };
 
 Person.prototype.pMakeBar = function(color){
