@@ -105,7 +105,6 @@ CoupleLog.prototype.makeDOM = function(html) {
             _this.setup.setupButton.slideDown("fast");
         };
         _this.sync();//перересовку иногда отключаю из-за глюка в фаерфоксе/фаербаге (при дэбаге не разворачивается адекватно)
-//        console.log("sync in title.click");
     });
 
     //перерисовка баров при изменении размеров окна
@@ -143,7 +142,6 @@ CoupleLog.prototype.sync = function(){
     this.shePerson.row.toggleClass('in-min', isHeMax).toggleClass('in-max', !isHeMax);
     //разделено на две отдельные функции (а не объединено в одну как было ранее) чтобы сначала пересчитывать
     //обе цифры, а только после этого перерисовывать оба бара
-//    console.log(this.data.title);
     this.recount(pair, diff);
     this.resize(pair, relation);
 };
@@ -168,14 +166,7 @@ CoupleLog.prototype.destroy = function(){
 function RaphBar(elem, color){
     var currentWidth = elem.width(),
         coeff = currentWidth ? 1 : 0;
-//    console.log('RaphBar currentWidth:', currentWidth, ' coeff:', coeff);
     this.elem = elem[0];
-/*
-    this.paper = new Raphael(this.elem, currentWidth, 24);
-    this.background = this.paper.rect(1, 1, currentWidth - 2 * coeff, 20);
-    this.background.attr({fill: 'gray', stroke: 'black', 'stroke-width': 2});
-    this.bar = this.paper.rect(2, 2, 0, 18);
-*/
     this.paper = new Raphael(this.elem, 0, 0);
     this.background = this.paper.rect(1, 1, 0, 0);
     this.background.attr({fill: 'gray', stroke: 'black', 'stroke-width': 2});
@@ -193,19 +184,17 @@ Person.prototype.pResize = function(relation){
     this.canvasContainer.width();  // эта строка нужна, вот только непонятно почему
     this.canvasContainer.width("100%");
     var currentWidth = this.canvasContainer.width(),
-        coeff = currentWidth ? 1 : 0;
-    this.bar.paper.setSize(currentWidth, this.canvasContainer.height());
-/*
-    this.bar.background.attr({width: currentWidth - 2 * coeff});
-    this.bar.bar.attr("width", currentWidth * relation['for' + this.who] - 4 * coeff);
-*/
+        currentHeight = this.canvasContainer.height(),
+        coeffW = currentWidth ? 1 : 0,
+        coeffH = currentHeight ? 1 : 0;
+    this.bar.paper.setSize(currentWidth, currentHeight);
     this.bar.background.attr({
-        width: currentWidth - 4 * coeff,
-        height: this.canvasContainer.height() - 4
+        width: currentWidth - 4 * coeffW,
+        height: currentHeight - 4 * coeffH
     });
     this.bar.bar.attr({
-        width: currentWidth * relation['for' + this.who] - 6 * coeff,
-        height: this.canvasContainer.height() - 6
+        width: currentWidth * relation['for' + this.who] - 6 * coeffW,
+        height: currentHeight - 6 * coeffH
     });
     this.canvasContainer.children().attr("display", "block");
 };
