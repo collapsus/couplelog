@@ -99,9 +99,7 @@ CoupleLog.prototype.makeDOM = function(html) {
     });
 
     this.title.click(function(){
-        console.log($(_this.hePerson.canvasContainer).width());
         _this.couplelogCollection.makeCurrent(this);
-        console.log($(_this.hePerson.canvasContainer).width());
         if (_this.setup.menu != undefined) {
             _this.setup.menu.slideUp("fast");
             _this.setup.setupButton.slideDown("fast");
@@ -164,11 +162,11 @@ CoupleLog.prototype.resize = function(pair, relation){
 };
 
 CoupleLog.prototype.destroy = function(){
-    $(this.elem).remove();
+    this.elem.remove();
 };
 
 function RaphBar(elem, color){
-    var currentWidth = $(this.elem).width(),
+    var currentWidth = elem.width(),
         coeff = currentWidth ? 1 : 0;
 //    console.log('RaphBar currentWidth:', currentWidth, ' coeff:', coeff);
     this.elem = elem[0];
@@ -184,27 +182,16 @@ function Person(who){
 };
 
 Person.prototype.pResize = function(relation){
-    console.log("до", this.bar.paper.width, this.bar.paper.height);
-    this.bar.paper.width = 0;
-    this.bar.paper.height = 0;
-    console.log("после", this.bar.paper.width, this.bar.paper.height);
-    console.log("до display: none  ", this.canvasContainer.width(), this.canvasContainer.height());
-    $(this.canvasContainer).children().attr("display", "none");
-    console.log("после display: none  ", this.canvasContainer.width(), this.canvasContainer.height());
-    console.log("before", this.canvasContainer.width(), this.canvasContainer.height());
-    $(this.canvasContainer).width("100%");
-    console.log("width: 100процентов  ", this.canvasContainer.width(), "при этом this.bar.paper.width == ", this.bar.paper.width);
-    console.log("after", this.canvasContainer.width(), this.canvasContainer.height());
-    var currentWidth = $(this.canvasContainer).width(),
+    this.canvasContainer.children().attr("display", "none");
+    this.canvasContainer.width("0");
+    this.canvasContainer.width();  // эта строка нужна, вот только непонятно почему
+    this.canvasContainer.width("100%");
+    var currentWidth = this.canvasContainer.width(),
         coeff = currentWidth ? 1 : 0;
     this.bar.paper.setSize(currentWidth, 22);
-    console.log("после setSize  ", this.canvasContainer.width(), this.canvasContainer.height());
     this.bar.background.attr({width: currentWidth - 2 * coeff});
-    this.bar.bar.attr("width", currentWidth * relation['for' + this.who] - 2 * coeff);
-    console.log("до display: block  ", this.canvasContainer.width(), this.canvasContainer.height());
-    $(this.canvasContainer).children().attr("display", "block");
-    console.log("после display: block  ", this.canvasContainer.width(), this.canvasContainer.height());
-    console.log("--------------------------------------------------------------pResizeEnd--------------------------------------------------------");
+    this.bar.bar.attr("width", currentWidth * relation['for' + this.who] - 4 * coeff);
+    this.canvasContainer.children().attr("display", "block");
 };
 
 Person.prototype.pMakeBar = function(color){

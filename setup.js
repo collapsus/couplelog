@@ -71,13 +71,13 @@ Setup.prototype.makeDOM = function(){
         _this.actionText.val(_this.data[_this.couplelog.current].action);
         _this.actionButton.val(_this.data[_this.couplelog.current].button);
         _this.checkbox[0].checked = false;
-        $(_this.setupButton).show();
-        $(_this.menu).toggle();
+        _this.setupButton.show();
+        _this.menu.toggle();
     });
 
     this.setupButton.click(function(){
-        $(_this.menu).toggle();
-        $(_this.setupButton).hide();
+        _this.menu.toggle();
+        _this.setupButton.hide();
         _this.checkbox.attr("disabled", _this.data.he.count + _this.data.she.count == 0 ? "disabled" : "")
     });
 

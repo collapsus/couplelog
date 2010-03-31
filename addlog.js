@@ -26,15 +26,16 @@ AddLog.prototype.makeDOM = function(){
         addButton: '.button',
         inputText: '.text',
         ok: '.ok',
-        cancel: '.cancel'
+        cancel: '.cancel',
+        menu: '.menu'
     }, function(k, v){
         _this[k] = _this.elem.find(v);
     });
 
     this.addButton.click(function(){
-        $(".addlog div.menu").toggle();
-        $(_this.inputText).val("Тема нового списка");
-        $(_this.addButton).toggle();
+        _this.menu.toggle();
+        _this.inputText.val("Тема нового списка");
+        _this.addButton.toggle();
     });
 
     this.ok.click(function(){
@@ -56,13 +57,13 @@ AddLog.prototype.makeDOM = function(){
                 button: ''
             }
         };
-        $(_this.addButton).trigger("click");
+        _this.addButton.trigger("click");
         _this.couplelogCollection.couplelogs[currentId] = new CoupleLog(_this.couplelogCollection, _this.couplelogCollection.logs[currentId], _this.couplelogCollection.currentUser);
-        $(_this.couplelogCollection.couplelogs[currentId].title).trigger("click");
+        _this.couplelogCollection.couplelogs[currentId].title.trigger("click");
     });
 
     this.cancel.click(function(){
-        $(_this.addButton).trigger("click");
+        _this.addButton.trigger("click");
     });
 
     this.inputText.click(function(){
@@ -72,7 +73,7 @@ AddLog.prototype.makeDOM = function(){
 };
 
 AddLog.prototype.destroy = function(){
-    $(this.elem).remove();
+    if (this.elem) {
+        this.elem.remove();
+    };
 };
-
-
