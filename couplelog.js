@@ -170,10 +170,16 @@ function RaphBar(elem, color){
         coeff = currentWidth ? 1 : 0;
 //    console.log('RaphBar currentWidth:', currentWidth, ' coeff:', coeff);
     this.elem = elem[0];
-    this.paper = new Raphael(this.elem, currentWidth, 22);
-    this.background = this.paper.rect(0, 0, currentWidth - 2 * coeff, 20);
+/*
+    this.paper = new Raphael(this.elem, currentWidth, 24);
+    this.background = this.paper.rect(1, 1, currentWidth - 2 * coeff, 20);
     this.background.attr({fill: 'gray', stroke: 'black', 'stroke-width': 2});
-    this.bar = this.paper.rect(1, 1, 0, 18);
+    this.bar = this.paper.rect(2, 2, 0, 18);
+*/
+    this.paper = new Raphael(this.elem, 0, 0);
+    this.background = this.paper.rect(1, 1, 0, 0);
+    this.background.attr({fill: 'gray', stroke: 'black', 'stroke-width': 2});
+    this.bar = this.paper.rect(2, 2, 0, 0);
     this.bar.attr({fill: color, stroke: 'none'});
 };
 
@@ -188,9 +194,19 @@ Person.prototype.pResize = function(relation){
     this.canvasContainer.width("100%");
     var currentWidth = this.canvasContainer.width(),
         coeff = currentWidth ? 1 : 0;
-    this.bar.paper.setSize(currentWidth, 22);
+    this.bar.paper.setSize(currentWidth, this.canvasContainer.height());
+/*
     this.bar.background.attr({width: currentWidth - 2 * coeff});
     this.bar.bar.attr("width", currentWidth * relation['for' + this.who] - 4 * coeff);
+*/
+    this.bar.background.attr({
+        width: currentWidth - 4 * coeff,
+        height: this.canvasContainer.height() - 4
+    });
+    this.bar.bar.attr({
+        width: currentWidth * relation['for' + this.who] - 6 * coeff,
+        height: this.canvasContainer.height() - 6
+    });
     this.canvasContainer.children().attr("display", "block");
 };
 
