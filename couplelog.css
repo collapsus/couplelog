@@ -1,161 +1,161 @@
-    .couplelog .gap i
-    {
-        display: block;
-        height: 0.5em;
-        width: 0.5em;
-    }
+.couplelog .gap i
+{
+    display: block;
+    height: 0.5em;
+    width: 0.5em;
+}
 
-    .couplelog .title
-    {
-        padding-right: 0.5em;
-    }
+.couplelog .title
+{
+    padding-right: 0.5em;
+}
 
-    .couplelog h1
-    {
-        text-align: center;
-        background-color:#F9F9F9;
-        margin-top: 10px;
-        margin-bottom: 5px;
-        padding-top: 5px;
-        padding-bottom: 5px;
-    }
+.couplelog h1
+{
+    text-align: center;
+    background-color:#F9F9F9;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
 
-    .couplelog h1:hover
-    {
-        background-color: #e3e2e2;
-        cursor: pointer;
-    }
+.couplelog h1:hover
+{
+    background-color: #e3e2e2;
+    cursor: pointer;
+}
 
-    h1 span
-    {
-        border-bottom: dotted 1px;
-    }
+h1 span
+{
+    border-bottom: dotted 1px;
+}
 
-    .couplelog .counts
-    {
-        padding-left: 0.5em;
-    }
+.couplelog .counts
+{
+    padding-left: 0.5em;
+}
 
-    .couplelog .title,
-    .couplelog .counts
-    {
-        white-space: nowrap;
-    }
+.couplelog .title,
+.couplelog .counts
+{
+    white-space: nowrap;
+}
 
-    .couplelog .bar
-    {
-        float: left;
-        height: 100%;
-    }
+.couplelog .bar
+{
+    float: left;
+    height: 100%;
+}
 
-    .couplelog .he .bar
-    {
-        background-color: #00f;
-    }
+.couplelog .he .bar
+{
+    background-color: #00f;
+}
 
-    .couplelog .she .bar
-    {
-        background-color: #f00;
-    }
+.couplelog .she .bar
+{
+    background-color: #f00;
+}
 
-    .couplelog .in-min .bar-diff
-    {
-        background-color: #ccc;
-    }
+.couplelog .in-min .bar-diff
+{
+    background-color: #ccc;
+}
 
-    .couplelog .he .count
-    {
-        color: #00f;
-    }
+.couplelog .he .count
+{
+    color: #00f;
+}
 
-    .couplelog .she .count
-    {
-        color: #f00;
-    }
+.couplelog .she .count
+{
+    color: #f00;
+}
 
-    .couplelog .in-max .diff
-    {
-        display: none;
-    }
+.couplelog .in-max .diff
+{
+    display: none;
+}
 
-    .couplelog .diff .count-diff
-    {
-        color: #ccc;
-    }
+.couplelog .diff .count-diff
+{
+    color: #ccc;
+}
 
-    .couplelog form
-    {
-        padding-top: 1em;
-    }
+.couplelog form
+{
+    padding-top: 1em;
+}
 
-    .couplelog form .cancel
-    {
-        display: none;
-    }
+.couplelog form .cancel
+{
+    display: none;
+}
 
-    .menu
-    {
-        text-align: left;
-        background-color:#F9F9F9;
-    }
+.menu
+{
+    text-align: left;
+    background-color:#F9F9F9;
+}
 
-    div .slide
-    {
-        display: none;
-    }
+div .slide
+{
+    display: none;
+}
 
-    div .canvas-container
-    {
-        height: 22px;
-        overflow: hidden;
-    }
+div .canvas-container
+{
+    height: 22px;
+    overflow: hidden;
+}
 
-    .setup .menu
-    {
-        display: none;
-        margin-bottom: 5px;
-    }
+.setup .menu
+{
+    display: none;
+    margin-bottom: 5px;
+}
 
-    .setup-button
-    {
-        margin: 0px 0px 10px 0px;
-    }
+.setup-button
+{
+    margin: 0px 0px 10px 0px;
+}
 
-    input
-    {
-        margin: 5px 5px 5px 5px;
-    }
+input
+{
+    margin: 5px 5px 5px 5px;
+}
 
-    .addlog .menu
-    {
-        display: none;
-    }
+.addlog .menu
+{
+    display: none;
+}
 
-    input.text
-    {
+input.text
+{
 
-    }
+}
 
-    table tbody
-    {
-        border: 1px solid #aaa;
-    }
+table tbody
+{
+    border: 1px solid #aaa;
+}
 
-    .likelogin
-    {
-        margin-bottom: 10px;
-    }
+.likelogin
+{
+    margin-bottom: 10px;
+}
 
-    h1.active
-    {
-        color: #00008b;
-    }
+h1.active
+{
+    color: #00008b;
+}
 
-    .accept
-    {
-        display: none;
-        text-align: center;
-        margin: 5px 0 5px 0;
-        padding: 5px 0 5px 0;
-        background-color: #ffa8a8;
-    }
+.accept
+{
+    display: none;
+    text-align: center;
+    margin: 5px 0 5px 0;
+    padding: 5px 0 5px 0;
+    background-color: #ffa8a8;
+}

@@ -16,10 +16,11 @@
 
             var /*currentUser = 'veged',*/
                 logs = {
-                    counter: 2,
+                    counter: 3,
                     'id1': {
                         id: 'id1',
                         title: 'Мытьё посуды',
+                        type: 'self',
                         he: {
                             user: 'veged',
                             count: 3,
@@ -36,6 +37,7 @@
                     'id2': {
                         id: 'id2',
                         title: 'Хорошо',
+                        type: 'self',
                         he: {
                             user: 'veged',
                             count: 5,
@@ -47,6 +49,23 @@
                             count: 1,
                             action: 'Я сделала хорошо',
                             button: 'сделала'
+                        }
+                    },
+                    'id3': {
+                        id: 'id3',
+                        title: 'Косяк!',
+                        type: 'other',
+                        he: {
+                            user: 'veged',
+                            count: 5,
+                            action: 'Она накосячила.',
+                            button: 'накосячила'
+                        },
+                        she: {
+                            user: 'lady_alice',
+                            count: 1,
+                            action: 'Он накосячил',
+                            button: 'накосячил'
                         }
                     }
                 },

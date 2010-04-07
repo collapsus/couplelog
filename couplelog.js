@@ -4,11 +4,18 @@ function CoupleLog(couplelogCollection, data, currentUser) {
     this.couplelogCollection = couplelogCollection;
     this.data = data;
     this.current = '';
-    if (data.he.user == currentUser) this.current = 'he';
-    if (data.she.user == currentUser) this.current = 'she';
+    this.type = data.type;
+    if (data.he.user == currentUser) {
+        this.current = 'he';
+        this.uncurrent = 'she';
+    }
+    if (data.she.user == currentUser) {
+        this.current = 'she';
+        this.uncurrent = 'he';
+    }
     this.currentData = data[this.current];
     this.makeDOM();
-};
+}
 
 CoupleLog.prototype.makeHTML = function() {
     return ['<div class="couplelog">',
@@ -85,7 +92,8 @@ CoupleLog.prototype.makeDOM = function(html) {
     this.actionButton.click(function(){
         $(this).attr('disabled', 'disabled').animate({disabled: ''}, 1000);
 
-        _this.currentData.count++;
+//        _this.currentData.count++;
+        (_this.type == "self" ? _this.currentData : _this.data[_this.uncurrent]).count++;
         _this.sync();
 
         _this.cancel.show();
@@ -94,7 +102,8 @@ CoupleLog.prototype.makeDOM = function(html) {
 
     this.cancelButton.click(function(){
         _this.cancel.hide();
-        _this.currentData.count--;
+//        _this.currentData.count--;
+        (_this.type == "self" ? _this.currentData : _this.data[_this.uncurrent]).count--;
         _this.sync();
     });
 

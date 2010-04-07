@@ -12,6 +12,11 @@ AddLog.prototype.makeHTML = function(){
         '<div class="menu">',
             '<input type="text" class="text"/>',
             '<br />',
+            '&nbsp;Формат списка:',
+            '<br />',
+            '<input type="radio" name="listtype" class="radio" value="self" checked/>Следить за собой',
+            '<input type="radio" name="listtype" class="radio" value="other"/>Следить за другим',
+            '<br />',
             '<input type="button" class="ok" value="OK"/>',
             '<input type="button" class="cancel" value="Cancel"/>',
             '',
@@ -27,7 +32,8 @@ AddLog.prototype.makeDOM = function(){
         inputText: '.text',
         ok: '.ok',
         cancel: '.cancel',
-        menu: '.menu'
+        menu: '.menu',
+        radio: '.radio'
     }, function(k, v){
         _this[k] = _this.elem.find(v);
     });
@@ -44,6 +50,7 @@ AddLog.prototype.makeDOM = function(){
         _this.logs[currentId] = {
             id: currentId,
             title: _this.inputText.val(),
+            type: $(".radio").filter(":checked").val(),
             he: {
                 user: 'veged',
                 count: 0,
