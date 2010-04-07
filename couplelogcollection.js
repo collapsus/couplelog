@@ -31,15 +31,21 @@ CoupleLogCollection.prototype.destroy = function(){
 
 CoupleLogCollection.prototype.makeCurrent = function(title){
     var _this = this;
+
+    function currentToggle(id){
+        _this.couplelogs[id].slide.slideToggle("fast", function(){
+            _this.couplelogs[id].sync();
+        });
+        _this.couplelogs[id].title.toggleClass("active");
+    };
+
     $.each(this.logs, function(id, value){
         if (id != 'counter') {
             if (_this.couplelogs[id].title[0] == title) {
-                _this.couplelogs[id].slide.slideToggle("fast");
-                _this.couplelogs[id].title.toggleClass("active");
-            } else {
-                _this.couplelogs[id].slide.slideUp("fast");
-                _this.couplelogs[id].title.removeClass("active");
-            };
+                currentToggle(id);
+            } else if (_this.couplelogs[id].title.attr("class") == "active"){
+                    currentToggle(id);
+                }
         }
     });
 };
