@@ -46,22 +46,23 @@ AddLog.prototype.makeDOM = function(){
 
     this.ok.click(function(){
         _this.logs.counter++;
-        var currentId = 'id' + _this.logs.counter;
+        var currentId = 'id' + _this.logs.counter,
+            currentType = $(_this.radio).filter(":checked").val();
         _this.logs[currentId] = {
             id: currentId,
             title: _this.inputText.val(),
-            type: $(".radio").filter(":checked").val(),
+            type: currentType,
             he: {
                 user: 'veged',
                 count: 0,
-                action: '',
-                button: ''
+                action: currentType == 'self' ? 'Я' : 'Она',
+                button: ' '
             },
             she: {
                 user: 'lady_alice',
                 count: 0,
-                action: '',
-                button: ''
+                action: currentType == 'self' ? 'Я' : 'Он',
+                button: ' '
             }
         };
         _this.addButton.trigger("click");
