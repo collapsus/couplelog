@@ -5,13 +5,11 @@ function CoupleLog(couplelogCollection, data, currentUser) {
     this.data = data;
     this.current = '';
     this.type = data.type;
-    if (data.he.user == currentUser) {
-        this.current = 'he';
-        this.uncurrent = 'she';
-    }
-    if (data.she.user == currentUser) {
-        this.current = 'she';
-        this.uncurrent = 'he';
+    var who = ['he'];
+    if (currentUser != "") {
+        who[data.she.user == currentUser ? 'unshift' : 'push']('she');
+        this.current = who[0];
+        this.uncurrent = who[1];
     }
     this.currentData = data[this.current];
     this.makeDOM();
