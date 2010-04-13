@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:widget="http://wdgt.yandex.ru/ns/" >
+    <head>
+        <meta name="title" content="CoupleLog" />
+        <meta name="description" content="Помогает свести счёты..." />
+        <meta name="height" content="300" />
+        <link rel="stylesheet" href="http://couplelog.appspot.com/couplelog.css"/>
+        <link rel="stylesheet" href="http://couplelog.appspot.com/couplelogwidget.css"/>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+        <script type="text/javascript" src="http://couplelog.appspot.com/couplelog.js"></script>
+        <script type="text/javascript" src="http://couplelog.appspot.com/couplelogcollection.js"></script>
+        <script type="text/javascript" src="http://couplelog.appspot.com/jquery.lint.js"></script>
+        <script type="text/javascript" src="http://couplelog.appspot.com/setup.js"></script>
+        <script type="text/javascript" src="http://couplelog.appspot.com/addlog.js"></script>
+        <script type="text/javascript" src="http://couplelog.appspot.com/likelogin.js"></script>
+        <script type="text/javascript" src="http://couplelog.appspot.com/raphael.js"></script>
+        <script type="text/javascript">
+
+            var /*currentUser = 'veged',*/
+                logs = {
+                    counter: 3,
+                    'id1': {
+                        id: 'id1',
+                        title: 'Мытьё посуды',
+                        type: 'self',
+                        he: {
+                            user: 'veged',
+                            count: 3,
+                            action: 'Я помыл посуду.',
+                            button: 'помыл'
+                        },
+                        she: {
+                            user: 'lady_alice',
+                            count: 5,
+                            action: 'Я помыла посуду.',
+                            button: 'помыла'
+                        }
+                    },
+                    'id2': {
+                        id: 'id2',
+                        title: 'Хорошо',
+                        type: 'self',
+                        he: {
+                            user: 'veged',
+                            count: 5,
+                            action: 'Я сделал хорошо.',
+                            button: 'сделал'
+                        },
+                        she: {
+                            user: 'lady_alice',
+                            count: 1,
+                            action: 'Я сделала хорошо',
+                            button: 'сделала'
+                        }
+                    },
+                    'id3': {
+                        id: 'id3',
+                        title: 'Косяк!',
+                        type: 'other',
+                        he: {
+                            user: 'veged',
+                            count: 5,
+                            action: 'Она накосячила.',
+                            button: 'накосячила'
+                        },
+                        she: {
+                            user: 'lady_alice',
+                            count: 1,
+                            action: 'Он накосячил',
+                            button: 'накосячил'
+                        }
+                    }
+                },
+            couplelogCollection = new CoupleLogCollection(logs);
+
+            $(function(){
+                couplelogCollection.likeLogin = new LikeLogin(couplelogCollection);
+                couplelogCollection.setCurrentUser('');
+                couplelogCollection.create();
+            });
+
+        </script>
+    </head>
+    <body>
+    </body>
+</html>
