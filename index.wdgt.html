@@ -5,6 +5,15 @@
         <meta name="title" content="Лог для двоих" />
         <meta name="description" content="Помогает свести счёты..." />
         <meta name="height" content="300" />
+        <widget:preferences>
+            <preference name="who" type="list" label="Кто вы?" defaultValue="Наблюдатель">
+            <option value="Наблюдатель">Наблюдатель</option>
+            <option value="Он">Он</option>
+            <option value="Она">Она</option>
+            </preference>
+        </widget:preferences>
+        <script type="text/javascript" src="http://img.yandex.net/webwidgets/1/WidgetApi.js"></script>
+
         <link rel="stylesheet" href="http://couplelog.appspot.com/couplelog.css"/>
         <link rel="stylesheet" href="http://couplelog.appspot.com/couplelogwidget.css"/>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
@@ -72,13 +81,21 @@
                         }
                     }
                 },
-            couplelogCollection = new CoupleLogCollection(logs);
+            couplelogCollection = new CoupleLogCollection(logs),
+            wdgtWho = '';
 
-            $(function(){
-                couplelogCollection.likeLogin = new LikeLogin(couplelogCollection);
-                couplelogCollection.setCurrentUser('');
-                couplelogCollection.create();
-            });
+//            $(function(){
+                widget.onload = function(){
+                    if (widget.getValue("who") == 'Он') {
+                        wdgtWho = 'veged';
+                    } else if (widget.getValue("who") == 'Она') {
+                        wdgtWho = 'lady_alice';
+                    }
+                    couplelogCollection.setCurrentUser(wdgtWho);
+                    couplelogCollection.body = $('body');
+                    couplelogCollection.create();
+                };
+//            });
 
         </script>
     </head>
