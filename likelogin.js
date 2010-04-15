@@ -41,3 +41,7 @@ LikeLogin.prototype.makeDOM = function(){
     });
 
 };
+
+LikeLogin.prototype.destroy = function(){
+    this.elem.remove();
+};

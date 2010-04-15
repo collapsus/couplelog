@@ -4,7 +4,38 @@ body
     font-size: 11px;
 }
 
+body:hover .wdgtsetup
+{
+}
+
 h1
 {
     font-size: 13px;
+}
+
+.wdgtsetup
+{
+    text-align: right;
+    margin: 1em;
+}
+
+.b-widget__control i {
+    background:url("http://img.yandex.net/i/widget/widget.png") repeat-x scroll 0 0 transparent;
+    overflow:hidden;
+    position:absolute;
+}
+
+.b-widget__control__setup i {
+    background-position: 20px -12px;
+    height:12px;
+    width:12px;
+}
+a.b-widget__control__setup:hover i
+{
+    background-position: 20px -24px
+}
+
+i
+{
+    margin: 0;
 }
