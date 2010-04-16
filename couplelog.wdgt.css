@@ -19,16 +19,24 @@ h1
     margin: 1em;
 }
 
-.b-widget__control i {
-    background:url("http://img.yandex.net/i/widget/widget.png") repeat-x scroll 0 0 transparent;
-    overflow:hidden;
-    position:absolute;
+.b-widget__control
+{
+    text-align: right;
+    height: 12px;
 }
 
-.b-widget__control__setup i {
+.b-widget__control i
+{
+    background: url("http://img.yandex.net/i/widget/widget.png") repeat-x scroll 0 0 transparent;
+    overflow: hidden;
+    position: absolute;
+}
+
+.b-widget__control__setup i
+{
     background-position: 20px -12px;
-    height:12px;
-    width:12px;
+    height: 12px;
+    width: 12px;
 }
 a.b-widget__control__setup:hover i
 {
@@ -38,4 +46,9 @@ a.b-widget__control__setup:hover i
 i
 {
     margin: 0;
+}
+
+.setup-submit
+{
+    display: none;
 }

@@ -5,25 +5,18 @@
         <meta name="title" content="Лог для двоих" />
         <meta name="description" content="Помогает свести счёты..." />
         <meta name="height" content="300" />
-        <widget:preferences>
-            <preference name="who" type="list" label="Кто вы?" defaultValue="Наблюдатель">
-            <option value="Наблюдатель">Наблюдатель</option>
-            <option value="Он">Он</option>
-            <option value="Она">Она</option>
-            </preference>
-        </widget:preferences>
-        <script type="text/javascript" src="http://img.yandex.net/webwidgets/1/WidgetApi.js"></script>
 
         <link rel="stylesheet" href="http://couplelog.appspot.com/couplelog.css"/>
-        <link rel="stylesheet" href="http://couplelog.appspot.com/couplelogwidget.css"/>
+        <link rel="stylesheet" href="couplelog.wdgt.css"/>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
-        <script type="text/javascript" src="http://couplelog.appspot.com/couplelog.js"></script>
-        <script type="text/javascript" src="http://couplelog.appspot.com/couplelogcollection.js"></script>
+        <script type="text/javascript" src="couplelog.wdgt.js"></script>
+        <script type="text/javascript" src="couplelogcollection.wdgt.js"></script>
         <script type="text/javascript" src="http://couplelog.appspot.com/jquery.lint.js"></script>
         <script type="text/javascript" src="http://couplelog.appspot.com/setup.js"></script>
-        <script type="text/javascript" src="http://couplelog.appspot.com/addlog.js"></script>
+        <script type="text/javascript" src="addlog.wdgt.js"></script>
         <script type="text/javascript" src="http://couplelog.appspot.com/likelogin.js"></script>
         <script type="text/javascript" src="http://couplelog.appspot.com/raphael.js"></script>
+        <script type="text/javascript" src="wdgt.setup.js"></script>
         <script type="text/javascript">
 
             var /*currentUser = 'veged',*/
@@ -33,6 +26,7 @@
                         id: 'id1',
                         title: 'Мытьё посуды',
                         type: 'self',
+                        check: true,
                         he: {
                             user: 'veged',
                             count: 3,
@@ -50,6 +44,7 @@
                         id: 'id2',
                         title: 'Хорошо',
                         type: 'self',
+                        check: true,
                         he: {
                             user: 'veged',
                             count: 5,
@@ -67,6 +62,7 @@
                         id: 'id3',
                         title: 'Косяк!',
                         type: 'other',
+                        check: true,
                         he: {
                             user: 'veged',
                             count: 5,
@@ -81,21 +77,19 @@
                         }
                     }
                 },
-            couplelogCollection = new CoupleLogCollection(logs),
-            wdgtWho = '';
+            couplelogCollection = new CoupleLogCollection(logs)
 
-//            $(function(){
-                widget.onload = function(){
-                    if (widget.getValue("who") == 'Он') {
-                        wdgtWho = 'veged';
-                    } else if (widget.getValue("who") == 'Она') {
-                        wdgtWho = 'lady_alice';
-                    }
-                    couplelogCollection.setCurrentUser(wdgtWho);
-                    couplelogCollection.body = $('body');
-                    couplelogCollection.create();
-                };
-//            });
+            $(function(){
+                couplelogCollection.wdgtSetup = new WdgtSetup(couplelogCollection);
+
+                couplelogCollection.likeLogin = new LikeLogin(couplelogCollection);
+                couplelogCollection.likeLogin.elem.hide();
+                couplelogCollection.setCurrentUser('');
+                couplelogCollection.setMode('cntnt');
+                couplelogCollection.create();
+
+            });
+
 
         </script>
     </head>
