@@ -126,9 +126,7 @@ CoupleLog.prototype.makeDOM = function(html) {
     });
 
     this.check.change(function(){
-        console.log("before: ", _this.data.check);
         _this.data.check = $(this).is(':checked');
-        console.log("after: ", _this.data.check);
     });
 
     //перерисовка баров при изменении размеров окна
