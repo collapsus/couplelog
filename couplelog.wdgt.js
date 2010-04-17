@@ -20,7 +20,7 @@ CoupleLog.prototype.makeHTML = function() {
         '<table cellpadding="0" cellspacing="0" width="100%">',
             '<tr>',
                 '<td class="setup-check-container">',
-                    '<input type="checkbox" class="setup-check" ', this.data.check ? "checked" : "", '"/>',
+                    '<input type="checkbox" class="setup-check" ', this.data.check ? "checked" : "", ' />',
                 '</td>',
                 '<td style="width: 100%">',
                     '<h1><span>', this.data.title, '</span></h1>',
