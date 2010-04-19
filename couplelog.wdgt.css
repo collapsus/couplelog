@@ -15,25 +15,37 @@ h1
 
 .wdgtsetup
 {
-    text-align: right;
-    margin: 1em;
+}
+
+.infocircle
+{
+    width: 20px;
+    height: 20px;
+}
+
+.infocircle svg
+{
+    width: 20px;
+    height: 20px;
+}
+
+.info
+{
+    display: none;
 }
 
 .b-widget__control
 {
-    text-align: right;
+    float: right;
+    width: 12px;
     height: 12px;
-}
-
-.b-widget__control i
-{
-    background: url("http://img.yandex.net/i/widget/widget.png") repeat-x scroll 0 0 transparent;
-    overflow: hidden;
-    position: absolute;
 }
 
 .b-widget__control__setup i
 {
+    background: url("http://img.yandex.net/i/widget/widget.png") repeat-x scroll 0 0 transparent;
+    overflow: hidden;
+    position: absolute;
     background-position: 20px -12px;
     height: 12px;
     width: 12px;
@@ -41,11 +53,6 @@ h1
 a.b-widget__control__setup:hover i
 {
     background-position: 20px -24px
-}
-
-i
-{
-    margin: 0;
 }
 
 .setup-submit

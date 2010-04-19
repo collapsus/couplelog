@@ -20,6 +20,7 @@ CoupleLogCollection.prototype.eachIf = function(whatToDo){
 }
 
 CoupleLogCollection.prototype.create = function(){
+    this.place = this.likeLogin.elem;
     this.addLog = new AddLog(this, this.currentUser);
     if (!this.isModeWdgt && this.addLog.elem) {this.addLog.elem.hide()}
 //    if (!this.isModeWdgt && this.likeLogin.elem) {this.likeLogin.elem.hide()}

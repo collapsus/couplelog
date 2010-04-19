@@ -75,7 +75,7 @@ CoupleLog.prototype.makeFormHTML = function(){
 };
 
 CoupleLog.prototype.makeDOM = function(html) {
-    this.elem = $(this.makeHTML()).appendTo(this.couplelogCollection.body);
+    this.elem = $(this.makeHTML()).insertAfter(this.couplelogCollection.place);
     var _this = this;
     $.each({
         diffCount: '.count-diff',
@@ -89,6 +89,8 @@ CoupleLog.prototype.makeDOM = function(html) {
     }, function(k, v){
         _this[k] = _this.elem.find(v);
     });
+
+    this.couplelogCollection.place = this.elem;
 
     this.setup = new Setup(this.couplelogCollection, this);
 

@@ -25,7 +25,7 @@ AddLog.prototype.makeHTML = function(){
 };
 
 AddLog.prototype.makeDOM = function(){
-    this.elem = $(this.makeHTML()).appendTo(this.couplelogCollection.body);
+    this.elem = $(this.makeHTML()).insertAfter(this.couplelogCollection.place);
     var _this = this;
     $.each({
         addButton: '.button',
@@ -37,6 +37,8 @@ AddLog.prototype.makeDOM = function(){
     }, function(k, v){
         _this[k] = _this.elem.find(v);
     });
+
+    this.couplelogCollection.place = this.elem;
 
     this.addButton.click(function(){
         _this.menu.toggle();
