@@ -8,12 +8,10 @@ LikeLogin.prototype.makeHTML = function(){
     return[
     '<div class="likelogin">',
         '<b>Кто вы? </b>',
-        '<select name="who" class="select-who">',
-            '<option disabled>Выберите пользователя</option>',
-            '<option selected value="Наблюдатель">Наблюдатель</option>',
-            '<option value="Он">Он</option>',
-            '<option value="Она">Она</option>',
-        '</select>',
+        '<br/>',
+        '<input type="radio" name="who" class="select-who" value="Наблюдатель" checked>Наблюдатель',
+        '<input type="radio" name="who" class="select-who" value="Он">Он',
+        '<input type="radio" name="who" class="select-who" value="Она">Она',
     '</div>'
     ].join('');
 };
