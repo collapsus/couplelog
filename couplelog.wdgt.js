@@ -168,6 +168,7 @@ CoupleLog.prototype.sync = function(){
     //обе цифры, а только после этого перерисовывать оба бара
     this.recount(pair, diff);
     this.resize(pair, relation);
+    widget.adjustIFrameHeight();
 };
 
 CoupleLog.prototype.recount = function(pair, diff){

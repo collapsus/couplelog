@@ -23,15 +23,28 @@ h1
     height: 20px;
 }
 
-.infocircle svg
+.info-button
 {
-    width: 20px;
-    height: 20px;
+    font-family: Georgia, serif;
+    font-style: italic;
+    font-weight: bold;
+    font-size: 1.5em;
+    float: right;
+    margin-right: 0.5em;
+    color: gray;
+}
+
+.info-button:hover
+{
+    cursor: pointer;
+    color: black;;
 }
 
 .info
 {
     display: none;
+    text-align: center;
+    background-color: #b0e0e6;
 }
 
 .b-widget__control

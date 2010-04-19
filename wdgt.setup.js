@@ -11,9 +11,12 @@ WdgtSetup.prototype.makeHTML = function(){
                     '<i></i>',
                 '</a>',
             '</div>',
-            '<div class="infocircle"></div>',
-            '<div class="info">Этот проэкт создан для...</div>',
+            '<div class="info-button">i</div>',
             '<input type="button" value="Применить" class="setup-submit" />',
+            '<br/>',
+            '<br/>',
+            '<div class="info">Этот проэкт создан для того, чтобы можно было наглядно и ',
+                    'красноречиво посчитать, кто чего и сколько сделал, как хорошего, так и плохого</div>',
         '</div>'
     ].join('');
 };
@@ -22,15 +25,16 @@ WdgtSetup.prototype.makeDOM = function(){
     this.elem = $(this.makeHTML()).appendTo(this.couplelogCollection.body);
     var _this = this;
     $.each({
+        control: ".b-widget__control",
         setup: ".b-widget__control__setup",
         submit: ".setup-submit",
         info: ".info",
-        infoCircleContainer: ".infocircle"
+        infoButton: ".info-button"
     }, function(k, v){
         _this[k] = _this.elem.find(v);
     });
 
-    this.infoCircle = new RaphInfoCircle(this.infoCircleContainer, this.info);
+    this.control.css('margin-top', parseFloat(this.couplelogCollection.body.css('font-size')) * 1.5 - 12);
 
     this.setup.click(function(){
 
@@ -43,6 +47,7 @@ WdgtSetup.prototype.makeDOM = function(){
         $(this).hide();
 
         _this.submit.show();
+        widget.adjustIFrameHeight();
     });
 
     this.submit.click(function(){
@@ -54,36 +59,11 @@ WdgtSetup.prototype.makeDOM = function(){
         $(this).hide();
 
         _this.setup.show();
+        widget.adjustIFrameHeight();
+    });
+
+    this.infoButton.click(function(){
+        _this.info.slideToggle();
     });
 
 };
-
-function RaphInfoCircle(elem, info){
-    this.elem = elem[0];
-    this.info = info;
-    this.paper = new Raphael(this.elem, 0, 0);
-    this.background = this.paper.circle(10, 10, 8);
-    this.background.attr({fill: 'gray'});
-    this.text = this.paper.text(10, 10, "i");
-    this.text.attr({fill: 'white', font: '12px Fontin-Sans, Arial'});
-
-    var _this = this;
-
-    onEvents(this.background);
-    onEvents(this.text);
-
-    function onEvents(obj){
-
-        obj.click(function(event){
-            _this.info.toggle();
-        });
-
-        obj.hover(function (event) {
-            _this.background.attr({fill: "blue"});
-            this[0].style.cursor = "pointer";
-        }, function (event) {
-            _this.background.attr({fill: "gray"});
-        });
-    }
-
-}
