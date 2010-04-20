@@ -19,7 +19,11 @@ AddLog.prototype.makeHTML = function(){
             '<br />',
             '<input type="button" class="ok" value="OK"/>',
             '<input type="button" class="cancel" value="Cancel"/>',
-            '',
+            '<div class="dont-repeat">',
+                'Список с таким заголовком уже существует',
+                '<br />',
+                '<input type="button" class="dont-repeat-ok" value="OK">',
+            '</div>',
         '</div>',
     '</div>'].join('');
 };
@@ -33,6 +37,8 @@ AddLog.prototype.makeDOM = function(){
         ok: '.ok',
         cancel: '.cancel',
         menu: '.menu',
+        dontRepeat: '.dont-repeat',
+        dontRepeatOk: '.dont-repeat-ok',
         radio: '.radio'
     }, function(k, v){
         _this[k] = _this.elem.find(v);
@@ -76,7 +82,13 @@ AddLog.prototype.makeDOM = function(){
             _this.addButton.trigger("click");
             _this.couplelogCollection.couplelogs[currentId] = new CoupleLog(_this.couplelogCollection, _this.couplelogCollection.logs[currentId], _this.couplelogCollection.currentUser);
             _this.couplelogCollection.couplelogs[currentId].title.trigger("click");
-        } else {alert('Список с таким заголовком уже есть')}
+        } else {
+            _this.dontRepeat.slideDown("slow");
+        }
+    });
+
+    this.dontRepeatOk.click(function(){
+        _this.dontRepeat.slideUp("slow");
     });
 
     this.cancel.click(function(){
