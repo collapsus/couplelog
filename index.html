@@ -76,7 +76,7 @@
             $(function(){
                 couplelogCollection.likeLogin = new LikeLogin(couplelogCollection);
 //                couplelogCollection.setCurrentUser('');
-                couplelogCollection.likeLogin.setWho($.cookie('currentWho'));
+                couplelogCollection.likeLogin.setWho($.cookie('currentWho') || "Наблюдатель");
 //                couplelogCollection.create();
                 couplelogCollection.makeCurrent($.cookie('currentTitle'));
             });
