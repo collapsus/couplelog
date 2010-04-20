@@ -9,6 +9,7 @@
         <script type="text/javascript" src="couplelog.js"></script>
         <script type="text/javascript" src="couplelogcollection.js"></script>
         <script type="text/javascript" src="jquery.lint.js"></script>
+        <script type="text/javascript" src="jquery.cookie.js"></script>
         <script type="text/javascript" src="setup.js"></script>
         <script type="text/javascript" src="addlog.js"></script>
         <script type="text/javascript" src="likelogin.js"></script>
@@ -74,8 +75,10 @@
 
             $(function(){
                 couplelogCollection.likeLogin = new LikeLogin(couplelogCollection);
-                couplelogCollection.setCurrentUser('');
-                couplelogCollection.create();
+//                couplelogCollection.setCurrentUser('');
+                couplelogCollection.likeLogin.setWho($.cookie('currentWho'));
+//                couplelogCollection.create();
+                couplelogCollection.makeCurrent($.cookie('currentTitle'));
             });
 
         </script>

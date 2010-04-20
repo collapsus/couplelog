@@ -34,7 +34,17 @@ WdgtSetup.prototype.makeDOM = function(){
         _this[k] = _this.elem.find(v);
     });
 
-    this.control.css('margin-top', parseFloat(this.couplelogCollection.body.css('font-size')) * 1.5 - 12);
+    this.control.css('margin-top', parseFloat(this.couplelogCollection.body.css('font-size')) * 1.5 - 11);
+
+    this.couplelogCollection.body.hover(function(){
+        _this.setup.fadeIn("slow");
+        _this.infoButton.fadeIn("slow");
+        widget.adjustIFrameHeight();
+    }, function(){
+        _this.setup.fadeOut("slow");
+        _this.infoButton.fadeOut("slow");
+        widget.adjustIFrameHeight();
+    });
 
     this.setup.click(function(){
 
@@ -64,6 +74,7 @@ WdgtSetup.prototype.makeDOM = function(){
 
     this.infoButton.click(function(){
         _this.info.slideToggle();
+        widget.adjustIFrameHeight();
     });
 
 };

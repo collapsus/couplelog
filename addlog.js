@@ -45,29 +45,38 @@ AddLog.prototype.makeDOM = function(){
     });
 
     this.ok.click(function(){
-        _this.logs.counter++;
-        var currentId = 'id' + _this.logs.counter,
-            currentType = $(_this.radio).filter(":checked").val();
-        _this.logs[currentId] = {
-            id: currentId,
-            title: _this.inputText.val(),
-            type: currentType,
-            he: {
-                user: 'veged',
-                count: 0,
-                action: currentType == 'self' ? 'Я' : 'Она',
-                button: ' '
-            },
-            she: {
-                user: 'lady_alice',
-                count: 0,
-                action: currentType == 'self' ? 'Я' : 'Он',
-                button: ' '
-            }
-        };
-        _this.addButton.trigger("click");
-        _this.couplelogCollection.couplelogs[currentId] = new CoupleLog(_this.couplelogCollection, _this.couplelogCollection.logs[currentId], _this.couplelogCollection.currentUser);
-        _this.couplelogCollection.couplelogs[currentId].title.trigger("click");
+        _this.couplelogCollection.eachIf(function(id){
+            if (_this.couplelogCollection.couplelogs[id].title.text() == _this.inputText.val()) {
+                bigFlag = false;
+                return false;
+            } else {bigFlag = true};
+        });
+        if (bigFlag) {
+            _this.logs.counter++;
+            var currentId = 'id' + _this.logs.counter,
+                currentType = $(_this.radio).filter(":checked").val(),
+                bigFlag;
+            _this.logs[currentId] = {
+                id: currentId,
+                title: _this.inputText.val(),
+                type: currentType,
+                he: {
+                    user: 'veged',
+                    count: 0,
+                    action: currentType == 'self' ? 'Я' : 'Она',
+                    button: ' '
+                },
+                she: {
+                    user: 'lady_alice',
+                    count: 0,
+                    action: currentType == 'self' ? 'Я' : 'Он',
+                    button: ' '
+                }
+            };
+            _this.addButton.trigger("click");
+            _this.couplelogCollection.couplelogs[currentId] = new CoupleLog(_this.couplelogCollection, _this.couplelogCollection.logs[currentId], _this.couplelogCollection.currentUser);
+            _this.couplelogCollection.couplelogs[currentId].title.trigger("click");
+        } else {alert('Список с таким заголовком уже есть')}
     });
 
     this.cancel.click(function(){

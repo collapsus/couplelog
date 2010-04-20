@@ -25,6 +25,7 @@ h1
 
 .info-button
 {
+    display: none;
     font-family: Georgia, serif;
     font-style: italic;
     font-weight: bold;
@@ -52,6 +53,11 @@ h1
     float: right;
     width: 12px;
     height: 12px;
+}
+
+.b-widget__control__setup
+{
+    display: none;
 }
 
 .b-widget__control__setup i

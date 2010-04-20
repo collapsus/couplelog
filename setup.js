@@ -63,7 +63,7 @@ Setup.prototype.makeDOM = function(){
         }
         _this.couplelogCollection.destroy();
         _this.couplelogCollection.create();
-// надо как-то добавить разворачивание этого же списка после внесения изменений
+        _this.couplelogCollection.makeCurrent($.cookie('currentTitle'));// (Done) надо как-то добавить разворачивание этого же списка после внесения изменений
     });
 
     this.setupCancel.click(function(){

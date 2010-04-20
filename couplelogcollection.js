@@ -36,6 +36,8 @@ CoupleLogCollection.prototype.destroy = function(){
 CoupleLogCollection.prototype.makeCurrent = function(title){
     var _this = this;
 
+    $.cookie('currentTitle', title, { expires: 1 });
+
     function currentToggle(id){
         _this.couplelogs[id].slide.slideToggle("fast", function(){
             _this.couplelogs[id].sync();
@@ -44,7 +46,7 @@ CoupleLogCollection.prototype.makeCurrent = function(title){
     };
 
     this.eachIf(function(id){
-        if (_this.couplelogs[id].title[0] == title) {
+        if (_this.couplelogs[id].title.text() == title) {
             currentToggle(id);
         } else if (_this.couplelogs[id].title.attr("class") == "active"){
                 currentToggle(id);
