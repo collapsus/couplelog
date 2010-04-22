@@ -23,7 +23,8 @@ WdgtSetup.prototype.makeHTML = function(){
 
 WdgtSetup.prototype.makeDOM = function(){
     this.elem = $(this.makeHTML()).appendTo(this.couplelogCollection.body);
-    var _this = this;
+    var _this = this,
+        isInSetup = false;
     $.each({
         control: ".b-widget__control",
         setup: ".b-widget__control__setup",
@@ -37,17 +38,17 @@ WdgtSetup.prototype.makeDOM = function(){
     this.control.css('margin-top', parseFloat(this.couplelogCollection.body.css('font-size')) * 1.5 - 11);
 
     this.couplelogCollection.body.hover(function(){
-        _this.setup.fadeIn("slow");
-        _this.infoButton.fadeIn("slow");
+        if (!isInSetup) _this.setup.show();
+        _this.infoButton.show();
         widget.adjustIFrameHeight();
     }, function(){
-        _this.setup.fadeOut("slow");
-        _this.infoButton.fadeOut("slow");
+        if (!isInSetup) _this.setup.hide();
+        _this.infoButton.hide();
         widget.adjustIFrameHeight();
     });
 
     this.setup.click(function(){
-
+        isInSetup = true;
         _this.couplelogCollection.destroy();
         _this.couplelogCollection.likeLogin.elem.show();
         _this.couplelogCollection.setMode('wdgt');
@@ -61,6 +62,7 @@ WdgtSetup.prototype.makeDOM = function(){
     });
 
     this.submit.click(function(){
+        isInSetup = false;
         _this.couplelogCollection.destroy();
         _this.couplelogCollection.likeLogin.elem.hide();
         _this.couplelogCollection.setMode('cntnt');
@@ -68,7 +70,7 @@ WdgtSetup.prototype.makeDOM = function(){
         _this.couplelogCollection.body.css("background-color", "");
         $(this).hide();
 
-        _this.setup.show();
+//        _this.setup.show();
         widget.adjustIFrameHeight();
     });
 
