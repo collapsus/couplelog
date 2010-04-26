@@ -36,9 +36,11 @@ CoupleLogCollection.prototype.destroy = function(){
 CoupleLogCollection.prototype.makeCurrent = function(idn){
     var _this = this;
 
-    $.cookie('currentId', idn, { expires: 1 });
-
     function currentToggle(id){
+        if (_this.couplelogs[id].title.attr("class") != "active") {
+            $.cookie('currentId', idn, { expires: 1 })
+        } else $.cookie('currentId', null, { expires: 1 })
+
         _this.couplelogs[id].slide.slideToggle("fast", function(){
             _this.couplelogs[id].sync();
         });

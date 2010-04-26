@@ -2,6 +2,7 @@ function LikeLogin(couplelogCollection){
     this.couplelogCollection = couplelogCollection;
     this.couplelogCollection.body = $('body');
     this.makeDOM();
+    this.cookieNull = true;
 };
 
 LikeLogin.prototype.makeHTML = function(){
@@ -27,6 +28,7 @@ LikeLogin.prototype.makeDOM = function(){
     });
 
     this.selectWho.click(function(){
+        if (_this.cookieNull) $.cookie('currentId', null, { expires: 1 })
         var cC = _this.couplelogCollection;
         cC.setCurrentUser('');
         if (this.value == 'Он') {
@@ -37,6 +39,7 @@ LikeLogin.prototype.makeDOM = function(){
         $.cookie('currentWho', this.value, { expires: 1 })
         cC.destroy();
         cC.create();
+        _this.cookieNull = true;
     });
 
 };
@@ -46,6 +49,7 @@ LikeLogin.prototype.setWho = function(who){
         _who = who;
     $.each(_this.couplelogCollection.likeLogin.selectWho, function(k, v){
         if ($(v).val() == _who) {
+            _this.cookieNull = false;
             $(this).attr('checked', 'checked').trigger('click');
         }
     });
