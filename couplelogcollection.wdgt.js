@@ -47,7 +47,8 @@ CoupleLogCollection.prototype.makeCurrent = function(title){
     var _this = this;
 
     function currentToggle(id){
-        _this.couplelogs[id].slide.slideToggle("fast", function(){
+//        _this.couplelogs[id].slide.slideToggle("fast", function(){
+        _this.couplelogs[id].slide.toggle(0, function(){
             _this.couplelogs[id].sync();
         });
         _this.couplelogs[id].title.toggleClass("active");

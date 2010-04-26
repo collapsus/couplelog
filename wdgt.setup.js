@@ -75,7 +75,7 @@ WdgtSetup.prototype.makeDOM = function(){
     });
 
     this.infoButton.click(function(){
-        _this.info.slideToggle();
+        _this.info.toggle();
         widget.adjustIFrameHeight();
     });
 

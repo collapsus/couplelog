@@ -204,6 +204,8 @@ Person.prototype.pResize = function(relation){
         height: currentHeight - 6 * coeffH
     });
     this.canvasContainer.children().attr("display", "block");
+    this.row.hide();
+    this.row.show();
 };
 
 Person.prototype.pMakeBar = function(color){

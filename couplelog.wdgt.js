@@ -121,8 +121,10 @@ CoupleLog.prototype.makeDOM = function(html) {
     this.title.click(function(){
         _this.couplelogCollection.makeCurrent(this);
         if (_this.setup.menu != undefined) {
-            _this.setup.menu.slideUp("fast");
-            _this.setup.setupButton.slideDown("fast");
+//            _this.setup.menu.slideUp("fast");
+//            _this.setup.setupButton.slideDown("fast");
+            _this.setup.menu.hide();
+            _this.setup.setupButton.show();
         };
         _this.sync();//перересовку иногда отключаю из-за глюка в фаерфоксе/фаербаге (при дэбаге не разворачивается адекватно)
     });
