@@ -43,22 +43,27 @@ CoupleLogCollection.prototype.destroy = function(){
     });
 };
 
-CoupleLogCollection.prototype.makeCurrent = function(title){
+CoupleLogCollection.prototype.makeCurrent = function(idn){
     var _this = this;
-
+    $.cookie('currentId', null, { expires: 1 })
     function currentToggle(id){
-//        _this.couplelogs[id].slide.slideToggle("fast", function(){
         _this.couplelogs[id].slide.toggle(0, function(){
             _this.couplelogs[id].sync();
         });
         _this.couplelogs[id].title.toggleClass("active");
+
     };
 
     this.eachIf(function(id){
-        if (_this.couplelogs[id].title[0] == title) {
+        if (_this.couplelogs[id].data.id == idn) {
             currentToggle(id);
         } else if (_this.couplelogs[id].title.attr("class") == "active"){
                 currentToggle(id);
             }
+
+        if (_this.couplelogs[id].title.attr("class") == "active") {
+            $.cookie('currentId', idn, { expires: 1 })
+        }
+        
     });
 };

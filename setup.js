@@ -63,7 +63,7 @@ Setup.prototype.makeDOM = function(){
         }
         _this.couplelogCollection.destroy();
         _this.couplelogCollection.create();
-        _this.couplelogCollection.makeCurrent($.cookie('currenId'));// (Done) надо как-то добавить разворачивание этого же списка после внесения изменений
+        _this.couplelogCollection.makeCurrent($.cookie('currenId'));
     });
 
     this.setupCancel.click(function(){

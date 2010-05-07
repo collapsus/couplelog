@@ -10,14 +10,15 @@
         <link rel="stylesheet" href="http://couplelog.appspot.com/couplelog.wdgt.css"/>
         <script type="text/javascript" src="http://img.yandex.net/webwidgets/1/WidgetApi.js"></script>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
-        <script type="text/javascript" src="http://couplelog.appspot.com/couplelog.wdgt.js"></script>
-        <script type="text/javascript" src="http://couplelog.appspot.com/couplelogcollection.wdgt.js"></script>
+        <script type="text/javascript" src="couplelog.wdgt.js"></script>
+        <script type="text/javascript" src="couplelogcollection.wdgt.js"></script>
         <script type="text/javascript" src="http://couplelog.appspot.com/jquery.lint.js"></script>
         <script type="text/javascript" src="http://couplelog.appspot.com/setup.js"></script>
+        <script type="text/javascript" src="http://couplelog.appspot.com/jquery.cookie.js"></script>
         <script type="text/javascript" src="http://couplelog.appspot.com/addlog.wdgt.js"></script>
         <script type="text/javascript" src="http://couplelog.appspot.com/likelogin.js"></script>
         <script type="text/javascript" src="http://couplelog.appspot.com/raphael.js"></script>
-        <script type="text/javascript" src="http://couplelog.appspot.com/wdgt.setup.js"></script>
+        <script type="text/javascript" src="wdgt.setup.js"></script>
         <script type="text/javascript">
 
             var /*currentUser = 'veged',*/
@@ -78,14 +79,14 @@
                         }
                     }
                 },
-            couplelogCollection = new CoupleLogCollection(logs)
+            couplelogCollection = new CoupleLogCollection(logs);
 
             $(function(){
                 couplelogCollection.likeLogin = new LikeLogin(couplelogCollection);
                 couplelogCollection.likeLogin.elem.hide();
-                couplelogCollection.setCurrentUser('');
                 couplelogCollection.setMode('cntnt');
-                couplelogCollection.create();
+                couplelogCollection.likeLogin.setWho($.cookie('currentWho') || "Наблюдатель");
+                couplelogCollection.makeCurrent($.cookie('currentId'));
                 couplelogCollection.wdgtSetup = new WdgtSetup(couplelogCollection);
 
                 widget.adjustIFrameHeight();

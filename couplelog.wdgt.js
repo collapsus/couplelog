@@ -119,7 +119,7 @@ CoupleLog.prototype.makeDOM = function(html) {
     });
 
     this.title.click(function(){
-        _this.couplelogCollection.makeCurrent(this);
+        _this.couplelogCollection.makeCurrent(_this.data.id);
         if (_this.setup.menu != undefined) {
 //            _this.setup.menu.slideUp("fast");
 //            _this.setup.setupButton.slideDown("fast");
