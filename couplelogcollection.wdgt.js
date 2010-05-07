@@ -45,10 +45,16 @@ CoupleLogCollection.prototype.destroy = function(){
 
 CoupleLogCollection.prototype.makeCurrent = function(idn){
     var _this = this;
+
+    //перерисовка баров при изменении размеров окна
+    $(window).resize(function(){
+        _this.sync();
+    });
+
     $.cookie('currentId', null, { expires: 1 })
     function currentToggle(id){
         _this.couplelogs[id].slide.toggle(0, function(){
-            _this.couplelogs[id].sync();
+//            _this.couplelogs[id].sync();
         });
         _this.couplelogs[id].title.toggleClass("active");
 
@@ -64,6 +70,7 @@ CoupleLogCollection.prototype.makeCurrent = function(idn){
         if (_this.couplelogs[id].title.attr("class") == "active") {
             $.cookie('currentId', idn, { expires: 1 })
         }
-        
+
     });
+    _this.couplelogs[idn].sync();
 };

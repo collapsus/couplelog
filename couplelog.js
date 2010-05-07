@@ -114,11 +114,6 @@ CoupleLog.prototype.makeDOM = function(html) {
         _this.sync();//перересовку иногда отключаю из-за глюка в фаерфоксе/фаербаге (при дэбаге не разворачивается адекватно)
     });
 
-    //перерисовка баров при изменении размеров окна
-    $(window).resize(function(){
-        _this.sync();
-    });
-
 };
 
 CoupleLog.prototype.sync = function(){
@@ -204,8 +199,6 @@ Person.prototype.pResize = function(relation){
         height: currentHeight - 6 * coeffH
     });
     this.canvasContainer.children().attr("display", "block");
-    this.row.hide();
-    this.row.show();
 };
 
 Person.prototype.pMakeBar = function(color){

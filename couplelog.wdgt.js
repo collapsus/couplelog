@@ -133,11 +133,6 @@ CoupleLog.prototype.makeDOM = function(html) {
         _this.data.check = $(this).is(':checked');
     });
 
-    //перерисовка баров при изменении размеров окна
-    $(window).resize(function(){
-        _this.sync();
-    });
-
 };
 
 CoupleLog.prototype.sync = function(){
@@ -207,6 +202,7 @@ function Person(who){
 
 Person.prototype.pResize = function(relation){
     this.canvasContainer.children().attr("display", "none");
+
     this.canvasContainer.width("0");
     this.canvasContainer.width();  // эта строка нужна, вот только непонятно почему
     this.canvasContainer.width("100%");
@@ -223,7 +219,9 @@ Person.prototype.pResize = function(relation){
         width: currentWidth * relation['for' + this.who] - 6 * coeffW,
         height: currentHeight - 6 * coeffH
     });
+
     this.canvasContainer.children().attr("display", "block");
+    this.canvasContainer.children().hide().show();
 };
 
 Person.prototype.pMakeBar = function(color){

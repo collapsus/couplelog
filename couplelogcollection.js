@@ -35,10 +35,16 @@ CoupleLogCollection.prototype.destroy = function(){
 
 CoupleLogCollection.prototype.makeCurrent = function(idn){
     var _this = this;
+    //перерисовка баров при изменении размеров окна
+    $(window).resize(function(){
+        _this.couplelogs[$.cookie('currentId')].sync();
+        console.log(_this.couplelogs[$.cookie('currentId')].data.id);
+    });
+    
     $.cookie('currentId', null, { expires: 1 })
     function currentToggle(id){
         _this.couplelogs[id].slide.slideToggle("fast", function(){
-            _this.couplelogs[id].sync();
+//            _this.couplelogs[id].sync();
         });
         _this.couplelogs[id].title.toggleClass("active");
 
@@ -56,4 +62,6 @@ CoupleLogCollection.prototype.makeCurrent = function(idn){
         }
 
     });
+    _this.couplelogs[idn].sync();
+
 };
